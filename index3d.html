@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#0b2f6b">
-<title>Зат алмасу · 3D Ұшақ шабуылы</title>
+<title>Көмірсу · 3D Ұшақ шабуылы</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;overflow:hidden;background:#0b2f6b;
@@ -191,15 +191,138 @@ h1 span{background:linear-gradient(92deg,var(--accent),var(--accent2));-webkit-b
 .list .it{padding:10px 12px;border-radius:14px;background:#f6f8fc;box-shadow:inset 0 0 0 1.5px rgba(16,20,24,.06)}
 .list .it b{display:block;font-size:13px;font-weight:900;color:#1e2740;line-height:1.3}
 .list .it span{display:block;font-size:11px;font-weight:700;color:#7b879d;margin-top:2px}
-.list .it{position:relative;padding-right:40px}
+.list .it{position:relative;padding-right:78px}
+.list .it.on{background:rgba(79,110,247,.09);box-shadow:inset 0 0 0 2px var(--accent)}
+.list .it .ed2{position:absolute;right:41px;top:50%;translate:0 -50%;height:27px;padding:0 8px;border:0;border-radius:10px;
+  background:rgba(79,110,247,.14);color:#2f4bd8;font:inherit;font-weight:900;font-size:10px;cursor:pointer}
 .list .it .del{position:absolute;right:8px;top:50%;translate:0 -50%;width:27px;height:27px;border:0;border-radius:10px;
   background:rgba(239,68,68,.12);color:#b4232b;font:inherit;font-weight:900;font-size:15px;line-height:1;cursor:pointer}
+.list .it .del.arm{background:#ef4444;color:#fff;width:auto;padding:0 8px;font-size:10px}
+.chips{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 9px;margin:0 0 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:0 0 auto;border:0;border-radius:99px;padding:9px 13px;font:inherit;font-weight:900;font-size:11.5px;
+  color:#41506e;background:rgba(255,255,255,.86);box-shadow:inset 0 0 0 1.5px rgba(16,20,24,.08);cursor:pointer;
+  white-space:nowrap;transition:.16s}
+.chips button b{display:inline-block;margin-left:5px;padding:1px 6px;border-radius:99px;background:rgba(16,20,24,.08);font-size:10px}
+.chips button.on{background:linear-gradient(180deg,#5b7bff,#3f6ef7);color:#fff;box-shadow:0 12px 22px -12px rgba(63,110,247,.95)}
+.chips button.on b{background:rgba(255,255,255,.24)}
+.hint{background:rgba(255,255,255,.7);border-radius:14px;padding:10px 12px;margin:0 0 9px;text-align:left;
+  box-shadow:inset 0 0 0 1.5px rgba(16,20,24,.06);font-size:11px;font-weight:700;color:#6b7691}
+.hint b{display:block;font-size:10px;letter-spacing:.7px;text-transform:uppercase;color:#2f4bd8;margin-bottom:4px}
+.hint pre{margin:0;padding:8px 9px;border-radius:10px;background:#101a2e;color:#cfe0ff;font-size:10.5px;line-height:1.45;
+  white-space:pre-wrap;word-break:break-word;overflow:auto;max-height:120px}
+textarea.ta{min-height:150px;resize:vertical;line-height:1.45;font-weight:700!important;font-size:13px!important}
 .orow{display:flex;align-items:center;gap:7px}
 .orow .tick{width:36px;height:38px;flex:0 0 auto;border:0;border-radius:12px;background:#eef2fa;color:#98a2b8;
   font:inherit;font-weight:900;font-size:12px;cursor:pointer;box-shadow:inset 0 0 0 1.5px rgba(16,20,24,.07);transition:.16s}
 .orow .tick.on{background:var(--good);color:#fff;box-shadow:0 10px 20px -10px rgba(22,185,129,.85)}
 .orow .tick svg{width:17px;height:17px;display:block;margin:auto}
 .orow .inp{flex:1;min-width:0}
+
+/* онлайн жарыс */
+.conn{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:99px;font-size:11px;font-weight:900;letter-spacing:.2px}
+.conn::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor;flex:0 0 7px}
+.conn.ok{background:rgba(22,185,129,.15);color:#0d9160}
+.conn.wait{background:rgba(245,158,11,.16);color:#9a5c0e;animation:pulse 1.3s ease-in-out infinite}
+.conn.bad{background:rgba(239,68,68,.13);color:#b4232b}
+@keyframes pulse{50%{opacity:.5}}
+.rc{display:flex;gap:6px;justify-content:center;margin:0 0 4px}
+.rc i{width:44px;height:52px;border-radius:13px;display:grid;place-items:center;font-style:normal;font-weight:900;font-size:23px;
+  color:#fff;background:linear-gradient(180deg,#5b7bff,#3f6ef7);box-shadow:0 14px 24px -12px rgba(63,110,247,.9);
+  opacity:0;transform:translateY(-16px) scale(.8);animation:rcIn .5s cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes rcIn{to{opacity:1;transform:none}}
+.rc.tip{text-align:center;font-size:10.5px;font-weight:900;letter-spacing:.4px;color:#8b95ab;margin:0 0 11px}
+.lb{display:flex;flex-direction:column;gap:6px;margin:0 0 11px;text-align:left}
+.lb .pl{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:14px;background:#f6f8fc;
+  box-shadow:inset 0 0 0 1.5px rgba(16,20,24,.06);font-weight:800;font-size:13px;color:#1e2740;
+  opacity:0;animation:fadeUp .42s ease forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.lb .pl .av{width:26px;height:26px;flex:0 0 26px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:900}
+.lb .pl .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb .pl .sc{margin-left:auto;font-weight:900;color:var(--accent);font-size:12.5px;flex:0 0 auto}
+.lb .pl.me{box-shadow:inset 0 0 0 2px var(--accent)}
+.lb .pl.gone{opacity:.45}
+.lb .pl .ho{font-size:8.5px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;color:#9a5c0e;
+  background:rgba(245,158,11,.18);padding:2px 6px;border-radius:99px;flex:0 0 auto}
+.seg{display:flex;gap:6px;margin:0 0 10px}
+.seg button{flex:1;border:0;border-radius:12px;padding:9px 5px;font:inherit;font-weight:900;font-size:11.5px;color:#54607a;
+  background:#fff;box-shadow:inset 0 0 0 1.5px rgba(16,20,24,.07);cursor:pointer;transition:.15s}
+.seg button.on{background:linear-gradient(180deg,#5b7bff,#3f6ef7);color:#fff;box-shadow:0 12px 22px -12px rgba(63,110,247,.9)}
+.seg button:disabled{opacity:.4}
+.code{display:flex;gap:7px;justify-content:center;margin:0 0 11px}
+.code input{width:52px;height:58px;text-align:center;font-size:25px;font-weight:900;border:0;border-radius:14px;
+  background:#fff;box-shadow:inset 0 0 0 2px rgba(16,20,24,.09);outline:0;color:#1e2740;text-transform:uppercase;font-family:inherit}
+.code input:focus{box-shadow:inset 0 0 0 2.5px var(--accent)}
+.code input.err{animation:shk .34s}
+@keyframes shk{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+
+#onlHud{position:fixed;right:10px;top:calc(112px + env(safe-area-inset-top));z-index:5;display:none;flex-direction:column;gap:4px;
+  width:158px;padding:9px 10px;border-radius:16px;background:rgba(9,22,48,.64);color:#e8f1ff;pointer-events:none;
+  box-shadow:0 18px 32px -20px rgba(0,0,0,.85),inset 0 0 0 1px rgba(255,255,255,.16);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#onlHud.show{display:flex}
+#onlHud b{display:block;font-size:8.5px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:#9fb4d8;margin-bottom:2px}
+#onlHud .r{display:flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;line-height:1.4}
+#onlHud .r i{font-style:normal;flex:0 0 13px;color:#9fb4d8;font-weight:900}
+#onlHud .r u{text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:88px}
+#onlHud .r s{margin-left:auto;text-decoration:none;font-weight:900;color:#ffd36b}
+#onlHud .r.me u{color:#fff}
+#onlHud .r.done i{color:#16b981}
+
+/* подиум */
+#podium{position:fixed;inset:0;z-index:13;display:none;overflow-y:auto;overflow-x:hidden;
+  background:radial-gradient(130% 88% at 50% 0%,rgba(20,42,88,.82),rgba(5,12,28,.94));
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+#podium.show{display:block}
+#podium.fade{animation:pdOut .38s ease forwards}
+@keyframes pdOut{to{opacity:0}}
+.pd-rays{position:absolute;top:-140px;left:50%;width:660px;height:660px;margin-left:-330px;pointer-events:none;
+  background:repeating-conic-gradient(rgba(245,158,11,.22) 0deg 8deg,transparent 8deg 22deg);
+  -webkit-mask-image:radial-gradient(circle,#000 0,transparent 62%);mask-image:radial-gradient(circle,#000 0,transparent 62%);
+  animation:raysIn 1.1s ease .2s both,spin 36s linear infinite}
+@keyframes raysIn{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pd-in{position:relative;z-index:2;min-height:100%;display:flex;flex-direction:column;align-items:center;
+  text-align:center;padding:calc(34px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom))}
+.pd-cup{width:88px;height:88px;opacity:0;animation:cupDrop .95s cubic-bezier(.2,1.5,.35,1) .1s forwards}
+.pd-cup svg{width:88px;height:88px;filter:drop-shadow(0 16px 26px rgba(245,158,11,.5))}
+@keyframes cupDrop{0%{opacity:0;transform:translateY(-96px) scale(.5) rotate(-12deg)}
+  68%{opacity:1;transform:translateY(8px) scale(1.07) rotate(3deg)}100%{opacity:1;transform:none}}
+.pd-kicker{font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#a9bde0;
+  margin-top:10px;opacity:0;animation:fadeUp .5s ease .8s forwards}
+.pd-winner{font-size:min(11vw,38px);font-weight:900;letter-spacing:-1px;line-height:1.14;margin:4px 0 2px;min-height:44px;
+  color:#fff;word-break:break-word;text-shadow:0 10px 26px rgba(0,0,0,.5)}
+.pd-winner .ltr{display:inline-block;opacity:0;transform:translateY(16px) scale(.7);
+  animation:ltrIn .38s cubic-bezier(.2,1.6,.4,1) forwards;
+  background:linear-gradient(180deg,#fff8e1,#fcd34d);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes ltrIn{to{opacity:1;transform:none}}
+.pd-sub{font-size:12px;font-weight:900;color:#c6d6f5;opacity:0;animation:fadeUp .5s ease 1.05s forwards}
+.pd-pods{display:flex;align-items:flex-end;justify-content:center;gap:10px;margin:26px 0 4px}
+.pod{width:92px;display:flex;flex-direction:column;align-items:center;opacity:0;animation:podRise .72s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes podRise{from{opacity:0;transform:translateY(70px)}to{opacity:1;transform:none}}
+.pod .crn{width:34px;height:34px;margin-bottom:-11px;z-index:3;opacity:0;
+  animation:crownDrop .8s cubic-bezier(.2,1.6,.4,1) 1.65s both;filter:drop-shadow(0 8px 14px rgba(245,158,11,.5))}
+@keyframes crownDrop{0%{opacity:0;transform:translateY(-54px) rotate(-22deg) scale(.6)}100%{opacity:1;transform:none}}
+.pod .av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:19px;
+  border:3px solid rgba(255,255,255,.92);box-shadow:0 12px 24px -12px rgba(0,0,0,.7);position:relative;z-index:2}
+.pod .nm{font-size:12px;font-weight:900;margin-top:7px;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff}
+.pod .pt{font-size:10.5px;font-weight:900;color:#a9bde0}
+.pod .bs{width:100%;border-radius:14px 14px 0 0;margin-top:9px;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.pod .bs em{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-style:normal;font-size:17px;font-weight:900;color:rgba(20,26,40,.72)}
+.pod.g .bs{height:132px;background:linear-gradient(180deg,#fde68a,#f0a416)}
+.pod.s .bs{height:96px;background:linear-gradient(180deg,#eef2f7,#9aa9bd)}
+.pod.b .bs{height:70px;background:linear-gradient(180deg,#fdba74,#c2701e)}
+.pd-rows{width:100%;max-width:330px;margin-top:14px;display:flex;flex-direction:column;gap:7px}
+.prow{display:flex;align-items:center;gap:9px;padding:10px 12px;border-radius:14px;text-align:left;
+  background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);
+  font-size:13px;font-weight:900;color:#eaf2ff;opacity:0;animation:fadeUp .45s ease forwards}
+.prow .pi{width:26px;height:26px;flex:0 0 26px;border-radius:50%;display:grid;place-items:center;font-size:11.5px;color:#fff;font-weight:900}
+.prow .pu{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prow .pv{margin-left:auto;color:#ffd36b}
+.pd-btns{width:100%;max-width:330px;margin-top:16px}
+.cf{position:fixed;top:-14px;width:9px;height:14px;border-radius:2px;pointer-events:none;z-index:14;
+  animation:cfFall linear forwards}
+@keyframes cfFall{to{transform:translateY(108vh) rotate(540deg);opacity:.15}}
 
 /* floating 3D labels */
 #labels{position:fixed;inset:0;pointer-events:none;z-index:4;overflow:hidden}
@@ -274,6 +397,18 @@ h1 span{background:linear-gradient(92deg,var(--accent),var(--accent2));-webkit-b
 
 <div id="scr"><div class="panel card" id="panel"></div></div>
 
+<div id="onlHud"></div>
+<div id="podium"><div class="pd-rays"></div><div class="pd-in">
+  <div class="pd-cup"><svg viewBox="0 0 64 64"><path d="M18 10h28v10a14 14 0 0 1-28 0z" fill="#fcd34d"/><path d="M18 14H9a9 9 0 0 0 9 9zM46 14h9a9 9 0 0 1-9 9z" fill="none" stroke="#f59e0b" stroke-width="4"/><path d="M32 34v8M24 54h16l-2-8h-12z" fill="#f59e0b"/></svg></div>
+  <div class="pd-kicker" id="pdKick"></div>
+  <div class="pd-winner" id="pdName"></div>
+  <div class="pd-sub" id="pdSub"></div>
+  <div class="pd-pods" id="pdPods"></div>
+  <div class="pd-rows" id="pdRows"></div>
+  <div class="pd-btns"><button class="cta" id="pdAgain">ҚАЙТА ЖАРЫСУ</button>
+    <button class="ghost" id="pdHome">БАСТЫ ЭКРАН</button></div>
+</div></div>
+
 <div id="nogl"><div class="panel card">
   <h1>Бұл құрылғыда <span>3D</span> жүктелмеді</h1>
   <p class="sub">WebGL қосылмады. Ойынның толық жұмыс істейтін 2D нұсқасы бар.</p>
@@ -284,6 +419,8 @@ h1 span{background:linear-gradient(92deg,var(--accent),var(--accent2));-webkit-b
 
 <script src="./three.min.js"
   onerror="var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js';s.onerror=function(){var u=document.createElement('script');u.src='https://unpkg.com/three@0.150.1/build/three.min.js';u.onerror=function(){window.__fail&&window.__fail()};document.head.appendChild(u)};document.head.appendChild(s);"></script>
+<script src="./peerjs.min.js"
+  onerror="var p=document.createElement('script');p.src='https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js';p.onerror=function(){var u=document.createElement('script');u.src='https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js';document.head.appendChild(u)};document.head.appendChild(p);"></script>
 <script>
 (function(){'use strict';
 /* ================= utils ================= */
@@ -300,29 +437,109 @@ var T=performance.now();
 
 /* ================= questions ================= */
 var QUIZ_POOL=[
- {c:"Энергия шығыны",q:"Ағзаның тәуліктік энергия шығыны дегеніміз не?",o:["Бір тәулік ішінде тіршілік етуге және қозғалысқа жұмсалатын энергия мөлшері","Тәулікте ішетін судың мөлшері","Бір таңғы астан алынатын дәрумендер","Тәуліктегі жүрек соғысының саны"],a:0,e:"Тәуліктік энергия шығыны — ағзаның бір тәулік ішінде тіршілік етуге және қозғалысқа жұмсайтын энергия мөлшері."},
- {c:"Энергия шығыны",q:"Тәуліктік энергия шығыны қандай бөліктерден тұрады?",o:["Негізгі алмасу, дене белсенділігі және тағамды қорыту","Тек дене белсенділігі","Тек тыныс алу мен жүрек соғуы","Тек ұйқы және тер арқылы булану"],a:0,e:"Тәуліктік шығын үш бөліктен құралады: негізгі алмасу + дене белсенділігі + тағамды қорытуға жұмсалатын энергия."},
- {c:"Негізгі алмасу",q:"Негізгі алмасу дегеніміз не?",o:["Тыныштықта тыныс алу, жүрек соғуы және дене температурасын сақтауға жұмсалатын энергия","Тамақтанған соң қорытуға кететін энергия","Спорт кезінде бұлшықетке кететін энергия","Тек тер арқылы шығатын су мөлшері"],a:0,e:"Негізгі алмасу — адам қимылдамай, тыныштықта тұрғанда да жүретін тіршілік үдерістеріне кететін энергия."},
- {c:"Белсенділік",q:"Дене белсенділігі энергия шығынына қалай әсер етеді?",o:["Қозғалыс пен физикалық жұмыс көбейген сайын энергия шығыны артады","Белсенділік көбейсе, энергия шығыны азаяды","Белсенділік энергия шығынына әсер етпейді","Энергия шығыны тек ұйқы кезінде артады"],a:0,e:"Қозғалыс неғұрлым көп болса, ағза соғұрлым көп энергия жұмсайды — сондықтан белсенді адамның шығыны жоғары."},
- {c:"Жас ерекшелігі",q:"Жас ерекшелігі энергия шығынына әсер ете ме?",o:["Иә, балалар мен жасөспірімдерде өсуге байланысты энергия қажеттілігі жоғары","Жоқ, барлық жаста энергия шығыны бірдей","Иә, бірақ қарт адамдарда ең жоғары","Жасы шығынға мүлдем қатысы жоқ"],a:0,e:"Балалар мен жасөспірімдерде дененің өсуі жүретіндіктен энергия қажеттілігі жоғары болады."},
- {c:"Жыныс айырмасы",q:"Ерлер мен әйелдердің энергия шығыны бірдей ме?",o:["Әдетте бірдей емес: дене салмағына, бұлшықет мөлшеріне және белсенділікке байланысты","Толықтай бірдей","Әйелдерде әрқашан көп болады","Ерлерде әрқашан аз болады"],a:0,e:"Энергия шығыны дене салмағына, бұлшықет мөлшеріне және белсенділік деңгейіне байланысты, сондықтан әдетте бірдей емес."},
- {c:"Дене салмағы",q:"Дене салмағы энергия шығынына қалай әсер етеді?",o:["Дене массасы артқан сайын қозғалуға және ағзаны қамтамасыз етуге кететін энергия да көбейеді","Дене массасы артса, энергия шығыны азаяды","Салмақ энергия шығынына әсер етпейді","Тек бойдың ұзындығы ғана әсер етеді"],a:0,e:"Массасы үлкен денені қозғалтуға және ішкі мүшелерді қамтамасыз етуге көбірек энергия жұмсалады."},
- {c:"Қорыту",q:"Тамақты қорытуға энергия жұмсала ма?",o:["Иә, қорыту, сіңіру және өңдеу кезінде ағза энергия жұмсайды","Жоқ, қорыту процесі энергия алмайды","Тек тамақты шайнау кезінде ғана жұмсалады","Жоқ, себебі тамақ — энергия көзі"],a:0,e:"Тамақты қорыту, сіңіру және өңдеуге де энергия кетеді — бұл «тағамның термиялық әсері» деп аталады."},
- {c:"Есептеу",q:"Тәуліктік энергия шығынын қалай анықтауға болады?",o:["Негізгі алмасуды, физикалық белсенділікті және тағамның термиялық әсерін есептеу арқылы","Тек тағам таразысын өлшеу арқылы","Тек жүрек соғысының жиілігін санау арқылы","Тек ұйқы уақытын бақылау арқылы"],a:0,e:"Тәуліктік шығын = негізгі алмасу + дене белсенділігі + тағамның термиялық әсері."},
- {c:"Энергия тепе-теңдігі",q:"Тағамнан түскен энергия мен шығын тең болмаса не болады?",o:["Энергия шығыннан көп болса салмақ артады, шығын көп болса салмақ төмендейді","Ештеңе өзгермейді","Салмақ әрқашан артады","Салмақ әрқашан төмендейді"],a:0,e:"Энергия балансы: түскен энергия > шығын → салмақ артады; шығын > түскен энергия → салмақ төмендейді."}
+ {c:"Көмірсу",q:"Көмірсулардың жалпы формуласы қандай?",o:["Cn(H2O)m","CnH2n","C2H5OH","R–COOH"],a:0,e:"Көмірсулар көміртек, сутек және оттектен тұрады, жалпы формуласы — Cn(H2O)m."},
+ {c:"Мономер",q:"Көмірсулардың негізгі құрылыс бірлігі (мономері) не?",o:["Глюкоза","Аминқышқыл","Глицерин","Нуклеотид"],a:0,e:"Көмірсулардың мономері — моносахарид, көбінесе глюкоза. Аминқышқыл — белоктің, нуклеотид — нуклеин қышқылының мономері."},
+ {c:"Моносахарид",q:"Төмендегілердің қайсысы моносахарид?",o:["Глюкоза","Сахароза","Крахмал","Целлюлоза"],a:0,e:"Глюкоза — бір молекуладан тұратын моносахарид. Сахароза — дисахарид, крахмал мен целлюлоза — полисахаридтер."},
+ {c:"Дисахарид",q:"Қайсысы дисахаридке жатады?",o:["Сахароза","Глюкоза","Гликоген","Рибоза"],a:0,e:"Сахароза екі моносахаридтен (глюкоза + фруктоза) құралады, сондықтан дисахарид."},
+ {c:"Полисахарид",q:"Қайсысы полисахаридке жатады?",o:["Крахмал","Фруктоза","Лактоза","Мальтоза"],a:0,e:"Крахмал — көптеген глюкоза қалдықтарынан тұратын полисахарид; фруктоза — моносахарид, лактоза мен мальтоза — дисахаридтер."},
+ {c:"Өсімдік қоры",q:"Өсімдіктерде қорға жиналатын көмірсу қандай?",o:["Крахмал","Гликоген","Хитин","Целлюлоза"],a:0,e:"Өсімдіктер глюкозаны крахмал түрінде сақтайды. Гликоген — жануарлардың қоры, целлюлоза — жасуша қабырғасының құрылымдық заты."},
+ {c:"Адам қоры",q:"Адам мен жануарлардағы қор көмірсуы не?",o:["Гликоген","Крахмал","Целлюлоза","Сахароза"],a:0,e:"Бауыр мен бұлшықетте глюкоза гликоген түрінде жиналады және қажет кезде қайта глюкозаға айналады."},
+ {c:"Энергия",q:"1 грамм көмірсу толық ыдырағанда қанша энергия бөлінеді?",o:["17,6 кДж","4,1 кДж","38,9 кДж","9,3 кДж"],a:0,e:"1 г көмірсу мен 1 г белок ыдырағанда шамамен 17,6 кДж, ал 1 г май — 38,9 кДж энергия береді."},
+ {c:"Қандағы глюкоза",q:"Ересек адамда қандағы глюкозаның қалыпты деңгейі қандай?",o:["3,3–5,5 ммоль/л","0,5–1,0 ммоль/л","8–12 ммоль/л","15–20 ммоль/л"],a:0,e:"Аш қарында қандағы глюкоза 3,3–5,5 ммоль/л шамасында болуы керек; тұрақтылықты инсулин мен глюкагон реттейді."},
+ {c:"Ыдырау өнімдері",q:"Көмірсу ағзада толық ыдырағанда қандай өнімдер түзіледі?",o:["Көмірқышқыл газы мен су","Несепнәр мен су","Май қышқылдары мен глицерин","Аминқышқылдар"],a:0,e:"Аэробты ыдырау кезінде көмірсулар CO2 мен H2O-ға дейін тотығып, энергия (АТФ) береді."}
 ];
 function myqGet(){try{var a=JSON.parse(store('za_myq')||'[]');return Array.isArray(a)?a:[]}catch(e){return[]}}
 function myqSet(a){store('za_myq',JSON.stringify(a))}
 
+/* ================= packs: кез келген тақырыпқа арналған сұрақ жинағы ================= */
+var DEF_QUESTIONS=QUIZ_POOL;
+function qFix(x){
+  if(!x||typeof x!=='object')return null;
+  var o=Array.isArray(x.o)?x.o.slice(0,4):[];
+  while(o.length<4)o.push('');
+  o=o.map(function(v){return String(v).slice(0,90)});
+  var a=Math.max(0,Math.min(3,+x.a||0));
+  return {c:String(x.c||'').slice(0,18),q:String(x.q||'').slice(0,160),o:o,a:a,e:String(x.e||'').slice(0,220)}}
+function packsLoad(){try{var a=JSON.parse(store('za_packs3d')||'null');
+  if(Array.isArray(a))return a.map(function(p){return {id:String(p.id||'p'),title:String(p.title||'Тақырып').slice(0,40),
+    qs:(Array.isArray(p.qs)?p.qs:[]).map(qFix).filter(Boolean)}}).filter(function(p){return p.id})}catch(e){}
+  return null}
+var PACKS=packsLoad();
+/* 2026-10: бұрынғы әдепкі «энергия шығыны» жинағы сурақтар-энергия-10.json көшірмесінде; ойында тек жаңа тақырып қалады */
+if(PACKS&&PACKS.length){
+  var kept=PACKS.filter(function(p){return !(p.id==='p-energy'||p.title==='Ағзаның тәуліктік энергия шығыны')});
+  if(kept.length!==PACKS.length){PACKS=kept;packsSave()}}
+if(!PACKS||!PACKS.length){
+  PACKS=[{id:'p-carbs',title:'Көмірсу',qs:DEF_QUESTIONS.map(qFix)}];
+  var legacy=myqGet();
+  if(legacy.length)PACKS.push({id:'p-own',title:'Менің сұрақтарым',qs:legacy.map(qFix).filter(Boolean)});
+  store('za_pack3d',PACKS[0].id);packsSave()}
+function packsSave(){store('za_packs3d',JSON.stringify(PACKS))}
+function packById(id){for(var i=0;i<PACKS.length;i++)if(PACKS[i].id===id)return PACKS[i];return null}
+function actPack(){return packById(store('za_pack3d'))||PACKS[0]}
+function setAct(id){if(packById(id))store('za_pack3d',id)}
+function newPack(title){var p={id:'p'+Date.now().toString(36),title:(title||'Жаңа тақырып').slice(0,40),qs:[]};
+  PACKS.push(p);packsSave();return p}
+function packQuestions(p){return (p&&p.qs&&p.qs.length)?p.qs.map(function(q){return Object.assign({pack:p.title},q)}):DEF_QUESTIONS.slice()}
+var ANSOPT='Нұсқаны өңде';
+function parseQText(txt,title){
+  var lines=String(txt||'').split(/\r?\n/).map(function(s){return s.trim()}).filter(function(s){return s.length});
+  var explicit=/^\+/.test(lines.join('\n'))||lines.some(function(s){return /^[+]/.test(s)});
+  var blocks=[],cur=null;
+  function push(){if(cur&&(cur.q||cur.ok)){blocks.push(cur)}cur=null}
+  lines.forEach(function(s){
+    var m;
+    if(explicit){
+      if(s.charAt(0)==='+'){if(cur){cur.ok=s.slice(1).trim();cur.opts=cur.opts||[]}return}
+      if(s.charAt(0)==='-'||s.charAt(0)==='•'){if(cur){cur.opts=cur.opts||[];cur.opts.push(s.slice(1).trim())}return}
+      if(/^[-—–:]\s/.test(s)||/^[-—–:]/.test(s)){if(cur){cur.ok=s.replace(/^[-—–:]\s*/,'')}return}
+      if(cur&&cur.q){push()}
+      if(!cur)cur={q:'',ok:'',opts:[]};
+      cur.q=s.replace(/^\d+[.)]\s*/,'').replace(/^[-—–:]\s*/,'');
+      return}
+    if(/^[-—–:]/.test(s)){
+      var ans=s.replace(/^[-—–:]\s*/,'').trim();
+      if(!cur){cur={q:'',ok:'',opts:[]}}
+      if(!cur.ok)cur.ok=ans;else cur.opts.push(ans);return}
+    push();cur={q:s.replace(/^\d+[.)]\s*/,'').trim(),ok:'',opts:[]}});
+  push();
+  var out=blocks.filter(function(b){return b.q&&b.ok});
+  var cat=(title||'Менің сұрағым').slice(0,18);
+  var qs=out.map(function(b){
+    var opts=[b.ok],pool=(b.opts||[]).filter(function(v){return v&&v!==b.ok});
+    for(var i=0;i<pool.length&&opts.length<4;i++)if(opts.indexOf(pool[i])<0)opts.push(pool[i]);
+    return qFix({c:cat,q:b.q,o:opts,a:0,e:b.ok})});
+  var answers=qs.map(function(q){return q.o[0]});
+  qs.forEach(function(q,i){
+    var k=1;
+    while(q.o.length<4&&k<qs.length+4){
+      var cand=answers[(i+k)%Math.max(1,answers.length)];
+      if(cand&&cand!==q.o[0]&&q.o.indexOf(cand)<0)q.o.push(cand);
+      else if(!cand)q.o.push(ANSOPT);
+      k++}
+    while(q.o.length<4)q.o.push(ANSOPT)});
+  return qs}
+
+/* ================= online state (PeerJS бөлме) ================= */
+var ONL={active:false,host:false,code:'',me:0,peer:null,conn:null,conns:{},idx:{},ready:false,playing:false,
+  qs:[],topic:'',qi:-1,players:[],dur:20000,t0:0,answered:false,rounds:0,round:0,seq:0,watch:null,
+  off:0,r0:0,rDur:20000,tab:'host',tries:0,err:'',serial:0,cf:null,ended:false,resolved:false};
+
 /* ================= sound ================= */
-var AC=null,MG=null,SBUS=null,MBUS=null;
+var AC=null,MG=null,SBUS=null,MBUS=null,MCUT=null;
 var sfx={on:true,music:true};
 function ac(){if(!sfx.on)return null;try{
-  if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();
-  if(AC.state==='suspended'&&AC.resume)AC.resume();
-  if(!MG){MG=AC.createGain();MG.gain.value=.95;MG.connect(AC.destination);
+  var Ctor=window.AudioContext||window.webkitAudioContext;if(!Ctor)return null;
+  if(!AC){AC=new Ctor();
+    MG=AC.createGain();MG.gain.value=.9;
+    var lim=AC.createDynamicsCompressor?AC.createDynamicsCompressor():null;
+    if(lim){try{lim.threshold.value=-14;lim.knee.value=18;lim.ratio.value=6;lim.attack.value=.004;lim.release.value=.22}catch(e){}
+      MG.connect(lim);lim.connect(AC.destination)}
+    else MG.connect(AC.destination);
     SBUS=AC.createGain();SBUS.gain.value=1;SBUS.connect(MG);
-    MBUS=AC.createGain();MBUS.gain.value=.5;MBUS.connect(MG)}
+    MCUT=AC.createBiquadFilter();MCUT.type='lowpass';MCUT.frequency.value=5200;MCUT.Q.value=.6;
+    MBUS=AC.createGain();MBUS.gain.value=.34;MCUT.connect(MBUS);MBUS.connect(MG)}
+  if(AC.state==='suspended'&&AC.resume)AC.resume();
   return AC}catch(e){return null}}
 /* iOS: үнсіз <audio> loop — аудио сессиясын 'playback'-ке ауыстырады (silent switch бәрібір дыбыс шығады) */
 function silentWav(){
@@ -338,72 +555,106 @@ function silentWav(){
 var IOSA=null;
 function iosUnlock(){try{if(!IOSA){IOSA=new Audio();IOSA.loop=true;IOSA.volume=.001;IOSA.preload='auto';IOSA.src=silentWav()}
   var p=IOSA.play();if(p&&p.catch)p.catch(function(){})}catch(e){}}
-function tone(f,d,type,vol,slide){var c=ac();if(!c)return;
+function at0(){return AC?AC.currentTime:0}
+function tone(f,d,type,vol,slide,at,bus){var c=ac();if(!c)return;
+  at=at===undefined?c.currentTime:at;
   var o=c.createOscillator(),g=c.createGain();o.type=type||'sine';o.frequency.value=f;
-  if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(40,slide),c.currentTime+d);
-  g.gain.value=0;g.gain.linearRampToValueAtTime(vol||.16,c.currentTime+.012);
-  g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+d);
-  o.connect(g);g.connect(SBUS);o.start();o.stop(c.currentTime+d+.02)}
-function noise(d,f0,f1,vol){var c=ac();if(!c)return;
-  var n=c.sampleRate*d,buf=c.createBuffer(1,n,c.sampleRate),ch=buf.getChannelData(0);
+  if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(40,slide),at+d);
+  g.gain.setValueAtTime(0,at);g.gain.linearRampToValueAtTime(vol||.16,at+.012);
+  g.gain.exponentialRampToValueAtTime(.0001,at+d);
+  o.connect(g);g.connect(bus||SBUS);o.start(at);o.stop(at+d+.03)}
+function noise(d,f0,f1,vol,at,hp){var c=ac();if(!c)return;
+  at=at===undefined?c.currentTime:at;
+  var n=Math.max(1,Math.floor(c.sampleRate*d)),buf=c.createBuffer(1,n,c.sampleRate),ch=buf.getChannelData(0);
   for(var i=0;i<n;i++)ch[i]=(Math.random()*2-1)*(1-i/n);
   var s=c.createBufferSource();s.buffer=buf;
-  var flt=c.createBiquadFilter();flt.type='lowpass';flt.frequency.value=f0;
-  flt.frequency.exponentialRampToValueAtTime(Math.max(60,f1),c.currentTime+d);
-  var g=c.createGain();g.gain.value=vol||.3;g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+d);
-  s.connect(flt);flt.connect(g);g.connect(SBUS);s.start()}
-sfx.click=function(){tone(560,.06,'triangle',.12)};
-sfx.correct=function(){tone(660,.09,'triangle',.18);setTimeout(function(){tone(990,.16,'triangle',.18)},80)};
-sfx.wrong=function(){tone(220,.2,'sawtooth',.16,110)};
-sfx.boom=function(){noise(.55,1400,60,.55);tone(70,.4,'sine',.26,32)};
-sfx.whoosh=function(){noise(.3,900,180,.2)};
-sfx.power=function(){tone(440,.08,'square',.13);setTimeout(function(){tone(880,.12,'square',.13)},70)};
-sfx.win=function(){[523,659,784,1046].forEach(function(f,i){setTimeout(function(){tone(f,.2,'triangle',.17)},i*110)})};
-sfx.hurt=function(){tone(150,.24,'square',.18,70)};
-sfx.tick=function(){tone(1200,.04,'square',.07)};
+  var flt=c.createBiquadFilter();flt.type=hp?'highpass':'lowpass';flt.frequency.value=f0;
+  if(!hp)flt.frequency.exponentialRampToValueAtTime(Math.max(60,f1),at+d);
+  var g=c.createGain();g.gain.setValueAtTime(vol||.3,at);g.gain.exponentialRampToValueAtTime(.0001,at+d);
+  s.connect(flt);flt.connect(g);g.connect(SBUS);s.start(at)}
+var STREAKP=0;
+sfx.click=function(){tone(620,.05,'triangle',.1)};
+sfx.deny=function(){tone(180,.09,'square',.1,140)};
+sfx.correct=function(){var k=1+Math.min(STREAKP,6)*.045;
+  [660,880,1100].forEach(function(f,i){tone(f*k,.13,'triangle',.17,undefined,at0()+i*.07)});
+  tone(1320*k,.2,'sine',.07,undefined,at0()+.21)};
+sfx.wrong=function(){tone(230,.22,'sawtooth',.15,110);noise(.18,700,120,.16,at0()+.02)};
+sfx.boom=function(){noise(.5,1500,60,.5);tone(72,.42,'sine',.24,30)};
+sfx.whoosh=function(){noise(.32,1200,180,.16)};
+sfx.power=function(){[520,780,1040].forEach(function(f,i){tone(f,.1,'square',.1,undefined,at0()+i*.06)})};
+sfx.hurt=function(){tone(150,.26,'square',.17,64);noise(.2,400,80,.14)};
+sfx.tick=function(){tone(1250,.035,'square',.06)};
+sfx.alarm=function(){tone(1500,.07,'square',.09);tone(1100,.09,'square',.08,undefined,at0()+.09)};
+sfx.win=function(){[523,659,784,1046,1318].forEach(function(f,i){tone(f,.24,'triangle',.16,undefined,at0()+i*.1)})};
+sfx.levelup=function(){[392,523,659,784].forEach(function(f,i){tone(f,.18,'sine',.14,undefined,at0()+i*.075)})};
+sfx.join=function(){tone(740,.09,'sine',.13);tone(1180,.12,'sine',.11,undefined,at0()+.08)};
+sfx.place=function(n){var base=[0,880,698,587,523][Math.min(n,4)]||494;
+  [base,base*1.25,base*1.5].forEach(function(f,i){tone(f,.3,'triangle',.15,undefined,at0()+i*.12)})};
 
-/* ---------- фондық мелодия (процедуралық секвенсор) ---------- */
-var SCALE=[440,523.25,587.33,659.25,783.99,880];
-var MEL=[0,2,4,2,5,4,2,0,1,3,4,3,5,4,2,1];
-var BASS=[110,110,98,98,87.31,87.31,82.41,82.41];
-var STEP=.24,MUS={timer:null,step:0,next:0};
+/* ---------- фондық мелодия: аккорд прогрессиясы + бірнеше әуен үлгісі ---------- */
+var SC=[440,523.25,587.33,659.25,783.99,880,1046.5];
+var CH=[[220,261.63,329.63],[174.61,220,261.63],[261.63,329.63,392],[196,246.94,293.66]];
+var BR=[110,87.31,130.81,98];
+var PAT=[[0,2,4,2,5,4,2,0,1,3,4,3,5,4,2,1],
+         [4,4,2,0,2,4,5,4,3,3,1,0,1,3,4,-1],
+         [0,1,2,3,4,5,4,2,0,2,4,5,4,2,1,0],
+         [5,-1,4,2,5,4,2,1,0,2,4,5,6,5,4,2],
+         [2,4,5,4,2,0,1,2,4,6,5,4,2,1,0,1],
+         [0,0,2,4,4,2,5,4,3,1,3,5,6,5,3,2]];
+var STEP=.24,MUS={timer:null,step:0,next:0,mode:'calm',bar:0,seed:1};
+function rndM(){MUS.seed=(MUS.seed*1103515245+12345)&2147483647;return MUS.seed/2147483647}
+function mstep(){return MUS.mode==='hot'?.17:(MUS.mode==='win'?.2:.24)}
 function mtone(f,at,dur,type,vol){if(!AC||!MBUS)return;
   var o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;
-  g.gain.setValueAtTime(0,at);g.gain.linearRampToValueAtTime(vol,at+.018);
+  g.gain.setValueAtTime(0,at);g.gain.linearRampToValueAtTime(vol,at+.02);
   g.gain.exponentialRampToValueAtTime(.0001,at+dur);
-  o.connect(g);g.connect(MBUS);o.start(at);o.stop(at+dur+.03)}
-function mhat(at){if(!AC||!MBUS)return;
-  var n=Math.floor(AC.sampleRate*.05),buf=AC.createBuffer(1,n,AC.sampleRate),ch=buf.getChannelData(0);
+  o.connect(g);g.connect(MCUT);o.start(at);o.stop(at+dur+.03)}
+function mhat(at,vol){if(!AC||!MBUS)return;
+  var n=Math.floor(AC.sampleRate*.04),buf=AC.createBuffer(1,n,AC.sampleRate),ch=buf.getChannelData(0);
   for(var i=0;i<n;i++)ch[i]=(Math.random()*2-1)*(1-i/n);
   var s=AC.createBufferSource();s.buffer=buf;
-  var f=AC.createBiquadFilter();f.type='highpass';f.frequency.value=6500;
-  var g=AC.createGain();g.gain.value=.045;g.gain.exponentialRampToValueAtTime(.0001,at+.05);
-  s.connect(f);f.connect(g);g.connect(MBUS);s.start(at)}
+  var f=AC.createBiquadFilter();f.type='highpass';f.frequency.value=6800;
+  var g=AC.createGain();g.gain.setValueAtTime(vol,at);g.gain.exponentialRampToValueAtTime(.0001,at+.04);
+  s.connect(f);f.connect(g);g.connect(MCUT);s.start(at)}
+function musBar(bar){if(!AC||!MBUS)return;var at=AC.currentTime+.02,ch=CH[bar%4];
+  ch.forEach(function(f,i){mtone(f/2,at,.9,'sine',.05+i*.01)});
+  mtone(BR[bar%4],at,mstep()*4,'sine',.2)}
 function musStep(){
-  if(!AC||!sfx.on||!sfx.music)return;
-  var look=AC.currentTime+.35,gap=0;
-  while(MUS.next<look&&gap++<8){
-    var st=MUS.step%16,at=Math.max(MUS.next,AC.currentTime+.02);
-    mtone(SCALE[MEL[st]]/2,at,STEP*.9,'triangle',.16);
-    if(st%2===0)mtone(SCALE[MEL[st]],at,STEP*.5,'sine',.06);
-    if(st%4===0)mtone(BASS[(st/4)%8],at,STEP*1.7,'sine',.22);
-    mhat(at);
-    MUS.next+=STEP;MUS.step++}}
-function startMusic(){if(!ac())return;iosUnlock();
-  if(MUS.timer)return;MUS.next=AC.currentTime+.1;MUS.step=0;
-  MUS.timer=setInterval(musStep,90)}
+  if(!AC||!sfx.on||!sfx.music||AC.state!=='running')return;
+  var now=AC.currentTime,look=now+.25,gap=0,sp=mstep();
+  if(MUS.next<now-.4)MUS.next=now+.05;
+  while(MUS.next<look&&gap++<16){
+    var st=MUS.step%16,bar=Math.floor(MUS.step/16),at=Math.max(MUS.next,now+.02);
+    if(st===0)musBar(bar);
+    var pat=PAT[(bar+MUS.modeIdx*2)%PAT.length],ni=pat[st];
+    if(ni>=0&&rndM()>.14){
+      var oct=(st===10&&rndM()>.6)?2:1,v=(MUS.mode==='hot'?.13:.11)+rndM()*.05;
+      mtone(SC[ni]*oct/2,at,sp*(.6+rndM()*.5),'triangle',v);
+      if(st%4===2)mtone(SC[ni]*oct,at,sp*.35,'sine',.035)}
+    if(MUS.mode==='hot'){if(st%2===1)mtone(BR[bar%4]*2,at,sp*.3,'square',.045);mhat(at,.05)}
+    else{if(st%4===2)mhat(at,.04);if(st%8===6)mhat(at,.028)}
+    MUS.next+=sp;MUS.step++}}
+function startMusic(mode){if(!ac())return;iosUnlock();
+  MUS.mode=mode||MUS.mode||'calm';MUS.modeIdx=mode==='hot'?1:0;
+  if(MUS.timer)return;MUS.next=AC.currentTime+.08;MUS.step=0;MUS.bar=0;
+  MUS.seed=(Date.now()%99991)+7;musStep();MUS.timer=setInterval(musStep,50)}
+function setMusicMode(m){if(!m||m===MUS.mode)return;MUS.mode=m;MUS.modeIdx=m==='hot'?1:0;
+  if(!MUS.timer&&AC&&AC.state==='running')startMusic(m)}
 function stopMusic(){if(MUS.timer){clearInterval(MUS.timer);MUS.timer=null}}
-function unlockAudio(){ac();iosUnlock();if(PG.on&&!PG.over&&!PG.paused)startMusic()}
+function unlockAudio(){ac();iosUnlock();if(PG.on&&!PG.over&&!PG.paused)startMusic(PG.tension?'hot':'calm')}
 var ARMED=false;
 function armAudio(){if(ARMED)return;ARMED=true;
-  ['pointerdown','touchstart','click','keydown'].forEach(function(e){addEventListener(e,unlockAudio,{passive:true})})}
+  ['pointerdown','touchstart','click','keydown','touchend'].forEach(function(e){addEventListener(e,unlockAudio,{passive:true})});
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){stopMusic();try{if(AC&&AC.suspend)AC.suspend();if(IOSA&&IOSA.pause)IOSA.pause()}catch(e){}}
+    else{try{if(AC&&AC.resume)AC.resume()}catch(e){}
+      MUS.timer=null;unlockAudio()}})}
 function sndIcon(){var b=$('btnSnd');if(b)b.classList.toggle('muted',!sfx.on)}
 function setSound(on){sfx.on=!!on;store('za_snd3d',sfx.on?'1':'0');
   if(!sfx.on){stopMusic();if(AC&&AC.suspend)AC.suspend();if(IOSA&&IOSA.pause)IOSA.pause()}
-  else{ac();unlockAudio();if(PG.on&&!PG.over)startMusic()}
+  else{AC=null;ac();unlockAudio();if(PG.on&&!PG.over)startMusic(PG.tension?'hot':'calm')}
   sndIcon()}
 function toggleSound(){setSound(!sfx.on)}
-
 /* ================= boot guard ================= */
 window.__fail=function(){$('nogl').classList.add('show');$('spin').classList.add('gone')};
 function hasGL(){try{var c=document.createElement('canvas');
@@ -897,14 +1148,12 @@ function fleePlane(o){
 
 /* ================= game state ================= */
 var PG={on:false,wave:1,lives:5,livesMax:5,score:0,streak:0,maxStreak:0,kills:0,correct:0,total:0,
-  cur:null,serial:0,src:'pool',dur:60000,t0:0,tSec:60,bonusNext:0,rewinds:0,locked:false,shield:false,fifty:2,shields:1,
+  cur:null,serial:0,src:'pool',dur:60000,t0:0,tSec:60,bonusNext:0,rewinds:0,locked:false,shield:false,fifty:2,shields:1,tension:false,
   nextAt:0,best:0,over:false,decor:false,paused:false,pauseAt:0};
 function tSecGet(){var v=+(store('za_t3d')||60);if(!isFinite(v)||v<=0)v=60;return clamp(Math.round(v),10,180)}
 function qList(){
-  var own=myqGet();
-  if(PG.src==='own')return own.length?own.map(function(q){return Object.assign({own:1},q)}):QUIZ_POOL.slice();
-  if(PG.src==='mix')return shuffle(own.map(function(q){return Object.assign({own:1},q)}).concat(QUIZ_POOL.slice()));
-  return QUIZ_POOL.slice()}
+  if(ONL.active&&ONL.qs.length)return ONL.qs.map(function(q){return Object.assign({pack:ONL.topic||'Онлайн'},q)});
+  return packQuestions(actPack())}
 var QUEUE=[],ORDER_FIRST=true;
 function nextQ(){
   if(!QUEUE.length){QUEUE=ORDER_FIRST?qList():shuffle(qList());ORDER_FIRST=false}
@@ -929,6 +1178,7 @@ function hearts(){
     else h+='<svg class="h off" viewBox="0 0 64 64"><path d="'+HEART+'" fill="#ef4444"/></svg>'}
   $('hLives').innerHTML=h}
 function hud(){
+  STREAKP=PG.streak;
   $('hScore').querySelector('.big').textContent=PG.score;
   $('hWave').querySelector('.big').textContent=PG.wave;
   hearts();
@@ -955,8 +1205,8 @@ function openPlaneQ(o){
   var q=o.q,order=shuffle([0,1,2,3]),keys=['А','Б','В','Г'];
   $('qCraft').innerHTML=craftSVG(o.cr);
   $('qCat').textContent=q.c;$('qText').textContent=q.q;
-  var m='<span class="mpill">Толқын '+PG.wave+'</span><span class="mpill">'+esc(o.cr.n)+'</span>'+
-    '<span class="mpill'+(q.own?' own':'')+'">'+(q.own?'Менің сұрағым':'Ойын сұрағы')+'</span>';
+  var m='<span class="mpill">'+(q.online?('Сұрақ '+(ONL.round+1)+'/'+ONL.rounds):('Толқын '+PG.wave))+'</span><span class="mpill">'+esc(o.cr.n)+'</span>'+
+    '<span class="mpill'+(q.pack?' own':'')+'">'+esc(q.online?'Онлайн жарыс':(q.pack||'Ойын сұрағы'))+'</span>';
   if(PG.streak>=2)m+='<span class="mpill">Комбо ×'+PG.streak+'</span>';
   $('qMeta').innerHTML=m;
   var h='';for(var i=0;i<4;i++)h+='<button class="opt" data-i="'+order[i]+'"><span class="k">'+keys[i]+'</span><span>'+esc(q.o[order[i]])+'</span></button>';
@@ -976,8 +1226,9 @@ function tickSheet(now){
   var left=Math.max(0,PG.dur-(now-PG.t0)),sec=Math.ceil(left/1000);
   $('ringFg').setAttribute('stroke-dashoffset',String(125.66*(1-left/PG.dur)));
   $('ringNum').textContent=sec;
+  if(sec<=5&&!PG.tension){PG.tension=true;setMusicMode('hot')}
   if(sec<=3){$('ring').classList.add('low');
-    if(sec!==PG.lastTick&&sec>0){PG.lastTick=sec;sfx.tick()}}
+    if(sec!==PG.lastTick&&sec>0){PG.lastTick=sec;sfx.alarm()}}
   else{$('ring').classList.remove('low');PG.lastTick=0}
   if(left<=0)timeUp()}
 function planeReveal(a){
@@ -988,6 +1239,7 @@ function planeReveal(a){
 function onAnswer(ev){
   var btn=ev.currentTarget;if(PG.locked||!PG.cur)return;
   var o=PG.cur,q=o.q,ok=+btn.dataset.i===q.a;
+  if(ONL.playing){onlineAnswer(btn,o,q,ok);return}
   PG.locked=true;PG.total++;
   planeReveal(q.a);
   if(ok){
@@ -1010,11 +1262,13 @@ function onAnswer(ev){
     setTimeout(function(){fleePlane(o);PG.cur=null;PG.locked=false;$('sheet').classList.remove('show')},700);
     hud()}}
 function timeUp(){
+  if(ONL.playing){onlineTimeout();return}
   if(!PG.cur||PG.locked)return;PG.locked=true;PG.total++;
   planeReveal(PG.cur.q.a);verdict(false,'Уақыт');sfx.wrong();PG.streak=0;loseLife();
   setTimeout(function(){if(PG.cur)fleePlane(PG.cur);PG.cur=null;PG.locked=false;$('sheet').classList.remove('show')},700);hud()}
 function escapePlane(o){fleePlane(o);PG.streak=0;loseLife();toast('Ұшақ жерге жетті — бір өмір кетті!')}
 function loseLife(){
+  if(ONL.playing)return;
   if(PG.shield){PG.shield=false;PG.shields=0;verdict(true,'Қалқан құтқарды!');hud();return}
   PG.lives=Math.max(0,PG.lives-1);hud();
   $('hLives').classList.add('break');setTimeout(function(){$('hLives').classList.remove('break')},700);
@@ -1043,7 +1297,7 @@ function progress(){
   var gain=PG.lives<PG.livesMax;PG.lives=Math.min(PG.livesMax,PG.lives+1);
   banner('САҚ БОЛ','ТОЛҚЫН '+PG.wave,(PG.wave%5===0?'АЛТЫН БОСС КЕЛДІ!':'Ұшақтар тезірек шабуылдайды')+
     (gain?' · +1 жүрек · +1 қалқан':' · +1 қалқан'));
-  sfx.power();hud()}
+  sfx.levelup();hud()}
 function bumpScore(){var e=$('hScore');e.classList.remove('bump');void e.offsetWidth;e.classList.add('bump')}
 
 /* ================= picking ================= */
@@ -1103,25 +1357,29 @@ function screenStart(){
   PG.on=false;PG.decor=true;PG.paused=false;PG.cur=null;PG.locked=false;
   PG.nextAt=performance.now()+300;
   $('hud').classList.add('hide');$('bar').classList.add('hide');
-  var own=myqGet().length;
-  show('<div class="tag">3D · ТҒН Практика 2.3 · Ағзаның тәуліктік энергия шығыны</div>'+
-    '<h1>Зат алмасу <span>3D</span><br>Ұшақ шабуылы</h1>'+
+  var ap=actPack(),qs=packQuestions(ap);
+  document.title=ap.title+' · 3D ұшақ шабуылы';
+  var chips='';
+  for(var i=0;i<PACKS.length;i++){var p=PACKS[i];
+    chips+='<button data-pid="'+p.id+'"'+(p.id===ap.id?' class="on"':'')+'>'+esc(p.title)+' <b>'+p.qs.length+'</b></button>'}
+  chips+='<button data-new="1">+ Жаңа тақырып</button>';
+  show('<div class="tag">3D · кез келген тақырып · '+esc(ap.title)+'</div>'+
+    '<h1>'+esc(ap.title.length>26?ap.title.slice(0,26)+'…':ap.title)+' <span>3D</span><br>Ұшақ шабуылы</h1>'+
     '<p class="sub">Аспанға қара: ұшақтар сұрақ алып келеді. Дұрыс жауап бер — ұшақ жарылады.</p>'+
+    '<div class="lbl" style="margin:2px 0 6px">Тақырып жинағы</div>'+
+    '<div class="chips" id="packChips">'+chips+'</div>'+
     '<div class="field"><input id="inName" placeholder="Атыңды жаз" value="'+esc(nameOf())+'" maxlength="18"></div>'+
     '<div class="field"><button class="stp" id="tMinus" aria-label="Азайту">&#8722;</button>'+
       '<svg viewBox="0 0 24 24" fill="none" stroke="#4f6ef7" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9.5V13l2.6 1.8M9.5 2h5"/></svg>'+
       '<input id="inTime" type="number" min="10" max="180" step="5" inputmode="numeric" value="'+PG.tSec+'">'+
       '<b class="unit">сек</b>'+
       '<button class="stp" id="tPlus" aria-label="Көбейту">+</button></div>'+
-    '<div class="seg" id="segSrc">'+
-      '<button data-s="pool"'+(PG.src==='pool'?' class="on"':'')+'>Ойын сұрағы</button>'+
-      '<button data-s="own"'+(PG.src==='own'?' class="on"':'')+'>Менікі ('+own+')</button>'+
-      '<button data-s="mix"'+(PG.src==='mix'?' class="on"':'')+'>Аралас</button></div>'+
     '<div class="rows"><div class="card"><div class="lbl">Рекорд</div><div class="big">'+PG.best+'</div></div>'+
-      '<div class="card"><div class="lbl">Сұрақ</div><div class="big">'+(PG.src==='own'?own:QUIZ_POOL.length)+'</div></div>'+
+      '<div class="card"><div class="lbl">Сұрақ</div><div class="big">'+qs.length+'</div></div>'+
       '<div class="card"><div class="lbl">Ұшақ</div><div class="big">5</div></div></div>'+
     '<button class="cta" id="btnPlay">ОЙЫНДЫ БАСТАУ</button>'+
-    '<button class="ghost" id="btnEdit">ӨЗ СҰРАҒЫМДЫ ЖАЗУ</button>'+
+    '<button class="ghost" id="btnOnline">ОНЛАЙН ЖАРЫС · бөлме жасау / қосылу</button>'+
+    '<button class="ghost" id="btnEdit">ТАҚЫРЫП ПЕН СҰРАҚТАРДЫ ӨҢДЕУ</button>'+
     '<div class="note">Сұрақ уақыты: <b id="tHint">'+PG.tSec+'</b> секунд · 5 жүрек · дұрыс жауап +½ жүрек · жүрек бітсе 2 толқын кері шегеріледі. Телефонда саусақпен түртіп атыс.</div>');
   $('inName').addEventListener('input',function(){store('za_player',this.value)});
   function setTime(v,strict){var n=Math.round(+v);
@@ -1134,32 +1392,60 @@ function screenStart(){
   $('inTime').addEventListener('keydown',function(e){if(e.key==='Enter'){this.blur()}});
   $('tMinus').addEventListener('click',function(){sfx.click();setTime(PG.tSec-5,true)});
   $('tPlus').addEventListener('click',function(){sfx.click();setTime(PG.tSec+5,true)});
-  $('segSrc').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
-    PG.src=b.dataset.s;sfx.click();screenStart()});
+  $('packChips').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+    sfx.click();
+    if(b.dataset.new){var np=newPack('Тақырып '+(PACKS.length+1));setAct(np.id);EDIT.packId=np.id;EDIT.q=null;screenEdit();return}
+    setAct(b.dataset.pid);screenStart()});
   $('btnPlay').addEventListener('click',startGame);
+  $('btnOnline').addEventListener('click',screenOnline);
   $('btnEdit').addEventListener('click',screenEdit)}
+var EDIT={packId:null,q:null,delArm:-1,tab:'list'};
+function editPack(){return packById(EDIT.packId)||actPack()}
 function screenEdit(){
   if(PG.on&&!PG.paused){PG.paused=true;PG.pauseAt=performance.now();$('sheet').classList.remove('show')}
   if(PG.paused)stopMusic();
-  renderEdit()}
-function tickRow(k,letter){
-  return '<div class="orow"><button class="tick'+(k===0?' on':'')+'" data-k="'+k+'" aria-label="'+letter+' — дұрыс">'+
+  EDIT.packId=editPack().id;EDIT.q=null;EDIT.delArm=-1;renderEdit()}
+function tickRow(k,letter,val,on){
+  return '<div class="orow"><button class="tick'+(on?' on':'')+'" data-k="'+k+'" aria-label="'+letter+' — дұрыс">'+
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-11"/></svg></button>'+
-    '<input class="inp" data-k="'+k+'" placeholder="'+letter+' нұсқасы" maxlength="70"></div>'}
+    '<input class="inp" data-k="'+k+'" placeholder="'+letter+' нұсқасы" maxlength="70" value="'+esc(val||'')+'"></div>'}
+function packChipsHTML(id){
+  var h='';
+  for(var i=0;i<PACKS.length;i++){var p=PACKS[i];
+    h+='<button data-pid="'+p.id+'"'+(p.id===id?' class="on"':'')+'>'+esc(p.title)+' <b>'+p.qs.length+'</b></button>'}
+  return '<div class="chips" id="editChips">'+h+'<button data-new="1">+ Жаңа</button></div>'}
 function renderEdit(){
-  var l=myqGet(),h='';
-  for(var i=0;i<l.length;i++)h+='<div class="it"><b>'+esc(l[i].q)+'</b><span>«Дұрыс: '+esc(l[i].o[l[i].a])+'» · '+esc(l[i].c)+'</span>'+
-    '<button class="del" data-del="'+i+'">×</button></div>';
-  show('<h1>Менің <span>сұрақтарым</span></h1>'+
-    '<p class="sub">Өзің жазған сұрақ та аспанда ұшақ болып келеді. Жасыл белгі — дұрыс жауап.</p>'+
-    (l.length?'<div class="list">'+h+'</div>':'<div class="note" style="margin:0 0 12px">Әзірге бірде-бір сұрақ жазбағансың.</div>')+
-    '<div class="ed"><label>Сұрағың</label><input id="eQ" placeholder="Мысалы: 1 ккал неше кДж?" maxlength="120">'+
-    '<label>Нұсқалар — дұрысына белгі қой</label><div id="eOpts" class="ed">'+
-      tickRow(0,'А')+tickRow(1,'Б')+tickRow(2,'В')+tickRow(3,'Г')+'</div>'+
-    '<label>Тақырыбы</label><input id="eC" placeholder="Мысалы: Калораж" maxlength="18"></div>'+
-    '<button class="cta" style="margin-top:12px" id="eSave">САҚТАУ</button>'+
+  var p=editPack(),cur=(EDIT.q===null)?null:p.qs[EDIT.q],h='';
+  for(var i=0;i<p.qs.length;i++){var q=p.qs[i];
+    h+='<div class="it'+(EDIT.q===i?' on':'')+'"><b>'+esc(q.q||'(сұрақ жазылмаған)')+'</b>'+
+      '<span>«Дұрыс: '+esc(q.o[q.a]||'—')+'» · '+esc(q.c||'')+(q.o.indexOf(ANSOPT)>=0?' · <i>нұсқаны толтыр</i>':'')+'</span>'+
+      '<button class="ed2" data-ed="'+i+'">өңдеу</button><button class="del" data-del="'+i+'">×</button></div>'}
+  show('<h1>Тақырып <span>жинағы</span></h1>'+
+    '<p class="sub">Кез келген пән, кез келген тақырып: атауын жаз, сұрақтарын қос — ойын сонымен ойнайды.</p>'+
+    packChipsHTML(p.id)+
+    '<div class="ed"><label>Тақырып атауы</label>'+
+      '<input id="pTitle" class="inp" maxlength="40" value="'+esc(p.title)+'"></div>'+
+    (p.qs.length?'<div class="lbl" style="margin:10px 0 4px">Сұрақтар ('+p.qs.length+')</div><div class="list">'+h+'</div>'
+      :'<div class="note" style="margin:10px 0 12px">Бұл тақырыпта әлі сұрақ жоқ. Төменнен қос немесе «Мәтіннен импорт» басады.</div>')+
+    '<div class="ed"><label>'+(cur?'Сұрақты өңдеу':'Жаңа сұрақ')+'</label>'+
+      '<input id="eQ" class="inp" placeholder="Мысалы: 1 ккал неше кДж?" maxlength="160" value="'+esc(cur?cur.q:'')+'">'+
+      '<label>Нұсқалар — дұрысына белгі қой</label><div id="eOpts" class="ed">'+
+        tickRow(0,'А',cur?cur.o[0]:'',!cur||cur.a===0)+tickRow(1,'Б',cur?cur.o[1]:'',!!cur&&cur.a===1)+
+        tickRow(2,'В',cur?cur.o[2]:'',!!cur&&cur.a===2)+tickRow(3,'Г',cur?cur.o[3]:'',!!cur&&cur.a===3)+'</div>'+
+      '<label>Тақырыпша (қысқа)</label><input id="eC" class="inp" placeholder="Мысалы: Калораж" maxlength="18" value="'+esc(cur?cur.c:'')+'">'+
+      '<label>Түсіндірме (қаласаң)</label><input id="eE" class="inp" placeholder="Неге дұрыс?" maxlength="220" value="'+esc(cur?cur.e:'')+'"></div>'+
+    '<button class="cta" style="margin-top:12px" id="eSave">'+(cur?'ӨЗГЕРІСТІ САҚТАУ':'СҰРАҚТЫ ҚОСУ')+'</button>'+
+    (cur?'<button class="ghost" id="eCancel">Сұрақты жабу</button>':'')+
+    '<button class="ghost" id="eImp">МӘТІННЕН ІМПОРТ (бірден 10 сұрақ)</button>'+
+    '<button class="ghost" id="eExp">ОҚЫП/КӨШІРУ ҮШІН ДАЙЫН МӘТІН</button>'+
     '<button class="ghost" id="eBack">'+(PG.on?'← Ойынға қайту':'← Артқа')+'</button>');
-  var ED={a:0};
+  var ED={a:cur?cur.a:0};
+  $('pTitle').addEventListener('input',function(){p.title=this.value.slice(0,40);packsSave()});
+  $('pTitle').addEventListener('blur',function(){sfx.click();renderEdit()});
+  $('editChips').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+    sfx.click();
+    if(b.dataset.new){var np=newPack('Тақырып '+(PACKS.length+1));EDIT.packId=np.id;EDIT.q=null;renderEdit();return}
+    EDIT.packId=b.dataset.pid;EDIT.q=null;renderEdit()});
   $('eOpts').addEventListener('click',function(e){
     var b=e.target.closest('.tick');if(!b)return;
     ED.a=+b.dataset.k;sfx.click();
@@ -1169,14 +1455,66 @@ function renderEdit(){
     var q=$('eQ').value.trim(),inp=$('eOpts').querySelectorAll('.inp'),vals=[];
     for(var i=0;i<4;i++)vals.push(inp[i].value.trim());
     if(!q){toast('Алдымен сұрақты жаз');$('eQ').focus();return}
-    if(vals.join('').length===0||vals.filter(function(v){return v}).length<4){toast('4 нұсқаның бәрін толтыр');return}
-    var cur=myqGet();cur.push({c:$('eC').value.trim()||'Менікі',q:q,o:vals,a:ED.a});
-    myqSet(cur);sfx.power();toast('Сұрақ сақталды ('+cur.length+')');renderEdit()});
+    if(vals.filter(function(v){return v}).length<4){toast('4 нұсқаның бәрін толтыр');return}
+    var item=qFix({c:$('eC').value.trim()||p.title.slice(0,18),q:q,o:vals,a:ED.a,e:$('eE').value.trim()});
+    if(cur)p.qs[EDIT.q]=item;else p.qs.push(item);
+    packsSave();setAct(p.id);sfx.power();EDIT.q=null;
+    toast(cur?'Сұрақ жаңартылды':'Сұрақ қосылды ('+p.qs.length+')');renderEdit()});
+  var cx=$('eCancel');
+  if(cx)cx.addEventListener('click',function(){EDIT.q=null;sfx.click();renderEdit()});
   $('eBack').addEventListener('click',editBack);
+  $('eImp').addEventListener('click',renderImport);
+  $('eExp').addEventListener('click',renderExport);
   var list=document.querySelector('.list');
   if(list)list.addEventListener('click',function(e){
+    var eb=e.target.closest('[data-ed]');
+    if(eb){EDIT.q=+eb.dataset.ed;sfx.click();renderEdit();
+      var f=document.querySelector('#eQ');if(f)f.focus();return}
     var b=e.target.closest('.del');if(!b)return;
-    var cur=myqGet();cur.splice(+b.dataset.del,1);myqSet(cur);sfx.click();renderEdit()})}
+    var i=+b.dataset.del;
+    if(EDIT.delArm!==i){EDIT.delArm=i;b.classList.add('arm');b.textContent='sure?';sfx.deny();
+      toast('Сұрақты өшіру — тағы бір рет бас');return}
+    p.qs.splice(i,1);EDIT.delArm=-1;if(EDIT.q===i)EDIT.q=null;
+    packsSave();sfx.click();toast('Сұрақ өшірілді');renderEdit()})}
+function renderImport(){
+  var p=editPack();
+  show('<h1>Мәтіннен <span>імпорт</span></h1>'+
+    '<p class="sub">Сұрақтарды тікелей қойып жібер. Екі формат та түсініледі.</p>'+
+    '<div class="hint"><b>1-формат</b><pre>1. Көмірсулардың мономері не?\n    — Глюкоза</pre>'+
+      'Қалған 3 нұсқа автоматты түрде басқа жауаптардан алынады (кейін өңдей аласың).</div>'+
+    '<div class="hint"><b>2-формат (нақты)</b><pre>Сұрақ?\n+ Дұрыс жауап\n- Қате нұсқа\n- Қате нұсқа\n- Қате нұсқа</pre></div>'+
+    '<div class="ed"><label>Жаңа тақырып атауы</label><input id="iTitle" class="inp" placeholder="Мысалы: Ұлптар" maxlength="40"></div>'+
+    '<textarea id="iText" class="inp ta" placeholder="Осында қой..."></textarea>'+
+    '<button class="cta" style="margin-top:10px" id="iGo">ІМПОРТ ЖАСАУ</button>'+
+    '<button class="ghost" id="iBack">← Артқа</button>');
+  $('iGo').addEventListener('click',function(){
+    var t=$('iText').value,title=$('iTitle').value.trim();
+    var qs=parseQText(t,title||p.title);
+    if(!qs.length){sfx.deny();toast('Бірде-бір сұрақ танылмады — форматты тексер');return}
+    var target=title?newPack(title):p;
+    target.qs=target.qs.concat(qs);packsSave();setAct(target.id);
+    EDIT.packId=target.id;EDIT.q=null;sfx.win();
+    toast(qs.length+' сұрақ импортталды');renderEdit()});
+  $('iBack').addEventListener('click',function(){sfx.click();renderEdit()})}
+function renderExport(){
+  var p=editPack(),txt='«'+p.title+'» — '+p.qs.length+' сұрақ\n\n';
+  for(var i=0;i<p.qs.length;i++){var q=p.qs[i];
+    txt+=(i+1)+'. '+q.q+'\n    + '+q.o[q.a]+'\n';
+    for(var k=0;k<4;k++)if(k!==q.a)txt+='    - '+q.o[k]+'\n';
+    if(q.e)txt+='    Түсіндірме: '+q.e+'\n';
+    txt+='\n'}
+  show('<h1>Жинақты <span>көшіру</span></h1>'+
+    '<p class="sub">Осы мәтінді басқа телефонға жіберсең — сол жерден «Мәтіннен импорт» арқылы қояды.</p>'+
+    '<textarea id="xText" class="inp ta" readonly>'+esc(txt)+'</textarea>'+
+    '<button class="cta" style="margin-top:10px" id="xCopy">КӨШІРУ</button>'+
+    '<button class="ghost" id="xBack">← Артқа</button>');
+  $('xCopy').addEventListener('click',function(){
+    var ta=$('xText');ta.removeAttribute('readonly');ta.select();ta.setSelectionRange(0,99999);
+    var ok=false;
+    try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ta.value);ok=true}}catch(e){}
+    try{if(document.execCommand)ok=document.execCommand('copy')||ok}catch(e){}
+    sfx.click();toast(ok?'Көшірілді':'Мәтінді саусақпен белгілеп көшір')});
+  $('xBack').addEventListener('click',function(){sfx.click();renderEdit()})}
 function editBack(){
   var was=PG.paused?performance.now()-PG.pauseAt:0;
   PG.paused=false;
@@ -1186,6 +1524,7 @@ function editBack(){
     if(PG.cur&&PG.locked===false){PG.t0+=was;$('sheet').classList.add('show')}
   } else screenStart()}
 function startGame(){
+  if(ONL.active)onlineTeardown();
   if(!nameOf()){store('za_player','Ойыншы');}
   armAudio();startMusic();
   PG.on=true;PG.over=false;PG.decor=false;PG.wave=1;PG.lives=5;PG.livesMax=5;PG.score=0;PG.streak=0;
@@ -1214,11 +1553,505 @@ function gameOver(){
   $('again').addEventListener('click',startGame);
   $('home').addEventListener('click',screenStart)}
 
+/* ================= ОНЛАЙН ЖАРЫС (PeerJS · бір бөлме, бір сұрақ, бір уақыт) ================= */
+var OCODE='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',ONL_MAX=6;
+function genCode(){var s='';for(var i=0;i<4;i++)s+=OCODE.charAt((Math.random()*OCODE.length)|0);return s}
+function pColor(n){var h=0,s=String(n||'O');for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return 'hsl('+(h%360)+' 62% 42%)'}
+function trimS(v){return String(v==null?'':v).replace(/\s+/g,' ').trim()}
+function onlineNoLib(){say('bad','Кітапхана жүктелмеді');toast('Онлайн үшін интернет керек — PeerJS жүктелген жоқ')}
+function say(cls,txt){var e=$('oConn');if(!e)return;e.className='conn '+(cls||'');e.textContent=txt||''}
+function oName(){return trimS(nameOf()).slice(0,14)||'Ойыншы'}
+function newPly(n,host){return {n:n,s:0,st:0,an:false,gone:false,host:!!host,peer:null}}
+function onlNames(){return ONL.players.map(function(p){return p.n})}
+function setRoster(names){var old=ONL.players;
+  ONL.players=(names||[]).map(function(n,i){return (old[i]&&old[i].n===n)?old[i]:newPly(trimS(n).slice(0,14)||('Ойыншы '+(i+1)),i===0&&ONL.host)})}
+function myP(){return ONL.players[ONL.me]||null}
+function livePly(){return ONL.players.filter(function(p){return !p.gone})}
+
+/* ---------- көмекші көрініс ---------- */
+function codeTiles(code){var h='';for(var i=0;i<code.length;i++)
+  h+='<i style="animation-delay:'+(i*.09).toFixed(2)+'s">'+esc(code.charAt(i))+'</i>';return '<div class="rc">'+h+'</div>'}
+function rosterHTML(){
+  if(!ONL.players.length)return '<div class="hint"><b>Қатысушылар</b>Әлі ешкім жоқ — кодты достарыңа жібер.</div>';
+  var h='<div class="lb">';
+  for(var i=0;i<ONL.players.length;i++){var p=ONL.players[i];
+    h+='<div class="pl'+(i===ONL.me?' me':'')+(p.gone?' gone':'')+'" style="animation-delay:'+(i*.06).toFixed(2)+'s">'
+      +'<span class="av" style="background:'+pColor(p.n)+'">'+esc(p.n.charAt(0).toUpperCase())+'</span>'
+      +'<span class="nm">'+esc(p.n)+'</span>'
+      +(p.host?'<span class="ho">жасаушы</span>':'')
+      +(p.gone?'<span class="ho" style="color:#b4232b;background:rgba(239,68,68,.16)">шықты</span>':'')
+      +'<span class="sc">'+p.s+'</span></div>'}
+  return h+'</div>'}
+
+/* ---------- бөлме экраны ---------- */
+function screenOnline(){
+  PG.on=false;PG.decor=true;PG.over=false;PG.cur=null;PG.locked=false;
+  PG.nextAt=performance.now()+1200;
+  $('hud').classList.add('hide');$('bar').classList.add('hide');$('onlHud').classList.remove('show');
+  $('sheet').classList.remove('show');$('podium').classList.remove('show','fade');
+  stopMusic();
+  var ap=actPack(),qs=packQuestions(ap);
+  if(!ONL.active){ONL.topic=ap.title;ONL.qs=qs.map(function(q){return Object.assign({pack:ap.title},q)});
+    if(!ONL.rounds||ONL.rounds>ONL.qs.length)ONL.rounds=Math.min(6,Math.max(1,ONL.qs.length));
+    if(!ONL.dur)ONL.dur=20000}
+  var pk='<div class="lbl" style="margin:2px 0 6px">Жарыс тақырыбы</div><div class="chips" id="oPacks">';
+  for(var i=0;i<PACKS.length;i++){var p=PACKS[i];
+    pk+='<button data-op="'+p.id+'"'+(p.id===ap.id?' class="on"':'')+'>'+esc(p.title)+' <b>'+p.qs.length+'</b></button>'}
+  pk+='</div>';
+  var rounds=[4,6,10],dur=[15000,20000,30000];
+  var stt=!window.Peer?['','кітапхана жүктелуде…']:(ONL.active?(ONL.ready?['ok',(ONL.host?'Бөлме ашық · ':'Қосылдың · ')+ONL.code]:['wait','қосылуда…']):['ok','дайын']);
+  var h='<div class="tag">ОНЛАЙН ЖАРЫС · 3D</div>'+
+    '<h1>Бір бөлме · <span>бір</span><br>сұрақ · бір уақыт</h1>'+
+    '<p class="sub">Жасаушы таңдаған сұрақтар барлық телефондарға ұшақ болып <b>бір мезгілде</b> келеді. Кім тез әрі дұрыс — сол бірінші.</p>'+
+    '<div class="hint" style="margin-bottom:11px"><b>Байланыс</b><span class="conn '+stt[0]+'" id="oConn">'+esc(stt[1])+'</span></div>'+
+    '<div class="field"><svg viewBox="0 0 24 24" fill="none" stroke="#4f6ef7" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4-6 8-6s6.5 2 8 6"/></svg>'+
+      '<input id="oName" placeholder="Атың" value="'+esc(nameOf())+'" maxlength="16"></div>'+
+    '<div class="seg" id="oTabs"><button data-tab="host"'+(ONL.tab==='host'?' class="on"':'')+'>БӨЛМЕ ЖАСАУ</button>'+
+      '<button data-tab="join"'+(ONL.tab==='join'?' class="on"':'')+'>КОДПЕН ҚОСЫЛУ</button></div>';
+  if(!ONL.active){
+    if(ONL.tab==='host'){
+      h+=pk+
+        '<div class="lbl" style="margin:0 0 5px">Сұрақ саны</div><div class="seg" id="oRounds">'+
+        rounds.map(function(n){return '<button data-r="'+n+'"'+(ONL.rounds===n?' class="on"':'')+'>'+n+'</button>'}).join('')+
+        '<button data-r="99"'+(ONL.rounds>=99?' class="on"':'')+'>бәрі</button></div>'+
+        '<div class="lbl" style="margin:0 0 5px">Бір сұраққа уақыт</div><div class="seg" id="oDur">'+
+        dur.map(function(n){return '<button data-d="'+n+'"'+(ONL.dur===n?' class="on"':'')+'>'+(n/1000)+' сек</button>'}).join('')+'</div>'+
+        '<button class="cta" id="oMake">БӨЛМЕ АШУ · КОД АЛУ</button>'+
+        (qs.length<1?'<div class="hint" style="margin-top:9px"><b>Ескерту</b>Бұл тақырыпта сұрақ жоқ — «Сұрақтарды өңдеу» арқылы қос.</div>':'')
+    }else{
+      h+='<div class="lbl" style="margin:0 0 6px">Бөлме коды (4 таңба)</div>'+
+        '<div class="code" id="oCode"><input maxlength="1" inputmode="text" autocapitalize="characters"><input maxlength="1" inputmode="text" autocapitalize="characters">'+
+        '<input maxlength="1" inputmode="text" autocapitalize="characters"><input maxlength="1" inputmode="text" autocapitalize="characters"></div>'+
+        '<button class="cta" id="oJoin">БӨЛМЕГЕ КІРУ</button>'+
+        '<div class="note">Достарың «Бөлме жасау»дан алған 4 таңбалы кодты жібереді. Сұрақтар жасаушының телефонынан келеді.</div>'
+    }
+    h+='<button class="ghost" id="oBack">← БАСТЫ ЭКРАН</button>';
+    show(h);
+    $('oName').addEventListener('input',function(){store('za_player',this.value)});
+    $('oTabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+      sfx.click();ONL.tab=b.dataset.tab;clearTimeout(ONL.watch);screenOnline()});
+    if($('oPacks'))$('oPacks').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+      sfx.click();setAct(b.dataset.op);ONL.topic=actPack().title;
+      ONL.qs=packQuestions(actPack()).map(function(q){return Object.assign({pack:actPack().title},q)});
+      if(ONL.rounds>=99)ONL.rounds=ONL.qs.length;
+      screenOnline()});
+    if($('oRounds'))$('oRounds').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+      sfx.click();var v=+b.dataset.r;ONL.rounds=(v>=99?Math.max(1,ONL.qs.length):v);screenOnline()});
+    if($('oDur'))$('oDur').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+      sfx.click();ONL.dur=+b.dataset.d;screenOnline()});
+    if($('oMake'))$('oMake').addEventListener('click',function(){
+      if(!window.Peer){onlineNoLib();return}
+      if(!ONL.qs.length){toast('Алдымен сұрақ таңда немесе жаса');return}
+      store('za_player',$('oName').value);
+      onlineTeardown();
+      ONL.host=true;ONL.active=true;ONL.tab='host';ONL.code=genCode();ONL.tries=0;
+      ONL.players=[newPly(oName(),true)];ONL.me=0;ONL.topic=actPack().title;
+      if(ONL.rounds>=99||!ONL.rounds)ONL.rounds=Math.max(1,Math.min(ONL.qs.length,ONL.rounds>=99?ONL.qs.length:ONL.rounds));
+      ONL.ended=false;
+      armAudio();sfx.whoosh();say('wait','Бөлме ашылуда…');screenOnline();startHost(ONL.code,0)});
+    if($('oJoin'))$('oJoin').addEventListener('click',function(){
+      store('za_player',$('oName').value);
+      var cs=$('oCode').querySelectorAll('input'),v='';
+      for(var i=0;i<cs.length;i++)v+=(cs[i].value||'').toUpperCase();
+      if(v.length!==4){for(i=0;i<cs.length;i++){cs[i].classList.add('err');(function(el){setTimeout(function(){el.classList.remove('err')},400)})(cs[i])}
+        sfx.wrong();toast('4 таңбалы кодты толық жаз');return}
+      if(!window.Peer){onlineNoLib();return}
+      onlineTeardown();ONL.host=false;ONL.active=true;ONL.code=v;ONL.ended=false;
+      ONL.players=[newPly(oName(),false)];ONL.me=0;
+      armAudio();sfx.whoosh();screenOnline();joinRoom(v)});
+    if($('oCode')){
+      var ins=$('oCode').querySelectorAll('input');
+      Array.prototype.forEach.call(ins,function(inp,k){
+        inp.addEventListener('input',function(){this.value=this.value.replace(/[^A-Za-z0-9]/g,'').toUpperCase().slice(0,1);
+          if(this.value&&ins[k+1])ins[k+1].focus()});
+        inp.addEventListener('keydown',function(e){
+          if(e.key==='Backspace'&&!this.value&&ins[k-1]){ins[k-1].focus()}
+          if(e.key==='Enter'){e.preventDefault();if($('oJoin'))$('oJoin').click()}});
+        inp.addEventListener('paste',function(e){e.preventDefault();
+          var t=(e.clipboardData||window.clipboardData).getData('text').replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+          for(var z=0;z<Math.min(4,t.length);z++)if(ins[z])ins[z].value=t.charAt(z);
+          if(ins[Math.min(3,t.length)])ins[Math.min(3,t.length)].focus()})});
+      setTimeout(function(){try{ins[0].focus()}catch(e){}},80)}
+    $('oBack').addEventListener('click',function(){sfx.click();onlineTeardown();screenStart()});
+    return}
+  /* белсенді бөлме */
+  var share=ONL.host?codeTiles(ONL.code)+'<div class="rc tip">Осы кодты достарыңа жібер · '+ONL.players.length+'/'+ONL_MAX+'</div>'
+                   :'<div class="hint"><b>Бөлме</b>Код: <b style="display:inline;padding:0;margin:0;background:none;color:#2f4bd8">'+esc(ONL.code)+'</b> · '+ONL.players.length+'/'+ONL_MAX+'</div>';
+  h+=share+rosterHTML();
+  if(ONL.host){
+    h+='<div class="hint"><b>Ереже</b>'+ONL.rounds+' сұрақ · сұраққа '+(ONL.dur/1000)+' сек · дұрыс жауап 10 ұпай + жылдамдық бонусы (8-ге дейін) + комбо (2×2). Жасаушы бастайды.</div>'+
+      '<button class="cta" id="oStart"'+(ONL.players.length<2?' disabled style="opacity:.45"':'')+'>ЖАРЫСТЫ БАСТАУ</button>'+
+      (ONL.players.length<2?'<div class="note">Кемінде 2 ойыншы керек — кодты жібер.</div>':'')
+  }else h+='<div class="hint"><b>Күту</b>Жарысты бөлме жасаушы бастайды. Дайын болсаң осы экранда күт.</div>';
+  h+='<button class="ghost" id="oLeave">БӨЛМЕДЕН ШЫГУ</button>';
+  show(h);
+  $('oName')&&$('oName').addEventListener('input',function(){store('za_player',this.value)});
+  if($('oStart'))$('oStart').addEventListener('click',function(){sfx.click();onlineStartRace()});
+  $('oLeave').addEventListener('click',function(){sfx.click();onlineTeardown();ONL.tab='host';screenOnline()});
+}
+
+/* ---------- PeerJS: жасаушы ---------- */
+function startHost(code,tries){
+  if(!window.Peer){onlineNoLib();return}
+  var p;try{p=new Peer('zat-'+code,{debug:0})}catch(e){onlineNoLib();return}
+  ONL.peer=p;ONL.code=code;
+  p.on('open',function(){ONL.ready=true;if($('scr').classList.contains('show')&&ONL.active)screenOnline();say('ok','Бөлме ашық · '+code)});
+  p.on('connection',function(c){
+    ONL.conns[c.peer]=c;
+    c.on('data',function(m){hostMsg(m,c)});
+    c.on('close',function(){dropUser(c.peer)});
+    c.on('error',function(){dropUser(c.peer)});
+    if(ONL.playing){try{c.send({t:'full'})}catch(e){}}});
+  p.on('error',function(err){
+    var ty=(err&&err.type)||'error';
+    if(ty==='unavailable-id'&&tries<8){try{p.destroy()}catch(e){}
+      ONL.code=genCode();ONL.tries=tries+1;startHost(ONL.code,tries+1);return}
+    if(ty==='peer-unavailable')return;
+    say('bad',ty==='network'||ty==='server-error'||ty==='socket-error'||ty==='browser-incompatible'
+      ?'Байланыс қатесі ('+ty+')':'Бөлме қатесі ('+ty+')');
+    toast('Интернетті тексеріп, қайта аш')});
+  p.on('disconnected',function(){try{p.reconnect()}catch(e){}});
+}
+function hostMsg(m,c){
+  if(!m||typeof m!=='object')return;
+  var j=ONL.idx[c.peer];
+  if(m.t==='join'){
+    if(ONL.playing||ONL.players.length>=ONL_MAX){try{c.send({t:'full'})}catch(e){}return}
+    if(j!=null&&ONL.players[j]){ONL.players[j].gone=false;try{c.send({t:'welcome',you:j,pl:onlNames(),qs:ONL.qs,
+        topic:ONL.topic,dur:ONL.dur,rounds:ONL.rounds,ht:Date.now()})}catch(e){}return}
+    var nm=trimS(m.n).slice(0,14)||'Қонақ';
+    for(var i=0;i<ONL.players.length;i++)if(ONL.players[i].n.toLowerCase()===nm.toLowerCase()){nm=nm.slice(0,10)+'·'+(i+1);break}
+    var np=newPly(nm,false);np.peer=c.peer;ONL.players.push(np);ONL.idx[c.peer]=ONL.players.length-1;
+    try{c.send({t:'welcome',you:ONL.players.length-1,pl:onlNames(),qs:ONL.qs,topic:ONL.topic,dur:ONL.dur,
+      rounds:ONL.rounds,ht:Date.now()})}catch(e){}
+    onlineSend({t:'who',pl:onlNames()});
+    sfx.join();toast(nm+' қосылды ('+ONL.players.length+')');
+    if($('scr').classList.contains('show'))screenOnline();else updateOnlHud();
+    return}
+  if(m.t==='ans'){if(j==null)return;hostAnswer(j,m.i,m.ok,m.ms);return}
+}
+function dropUser(pid){
+  delete ONL.conns[pid];
+  var j=ONL.idx[pid];delete ONL.idx[pid];
+  if(j==null||!ONL.players[j])return;
+  ONL.players[j].gone=true;ONL.players[j].peer=null;
+  toast(ONL.players[j].n+' шығып кетті');
+  if(sfx.deny)sfx.deny();
+  if(ONL.playing){
+    if(ONL.host){onlineSend({t:'board',s:scores(),st:streaks(),an:flags()});hostCheckFinish()}
+    updateOnlHud()}
+  else if($('scr').classList.contains('show')&&!ONL.ended)screenOnline()}
+function hostCheckFinish(){
+  if(!ONL.host||!ONL.playing)return;
+  if(allDone()){clearTimeout(ONL.watch);ONL.watch=setTimeout(hostFinishRound,700)}}
+
+/* ---------- PeerJS: қонақ ---------- */
+function joinRoom(code){
+  if(!window.Peer){onlineNoLib();return}
+  var p;try{p=new Peer(undefined,{debug:0})}catch(e){onlineNoLib();return}
+  ONL.peer=p;say('wait','«'+code+'» бөлмесі ізделуде…');
+  var fail=setTimeout(function(){if(!ONL.ready){say('bad','Бөлме табылмады');
+    toast('Кодты тексер немесе жасаушыдан қайта жібертуін сұра')}},16000);
+  p.on('open',function(){
+    var c;try{c=p.connect('zat-'+code,{reliable:true})}catch(e){clearTimeout(fail);onlineNoLib();return}
+    ONL.conn=c;
+    c.on('open',function(){ONL.ready=true;say('wait','Қосылдың · тізім күт…');
+      try{c.send({t:'join',n:oName()})}catch(e){}});
+    c.on('data',guestMsg);
+    c.on('close',function(){if(!ONL.active)return;
+      if(ONL.playing){toast('Бөлме жабылды');onlineTeardown();ONL.tab='join';screenOnline()}
+      else{say('bad','Байланыс үзілді');if($('scr').classList.contains('show'))screenOnline()}});
+    c.on('error',function(){say('bad','Байланыс қатесі')})});
+  p.on('error',function(err){clearTimeout(fail);var ty=(err&&err.type)||'';
+    say('bad',ty==='peer-unavailable'?'Бөлме табылмады':'Қосылу қатесі');
+    toast('«'+code+'» бөлмесіне кірмеді');ONL.active=false;ONL.host=false;
+    if($('scr').classList.contains('show'))screenOnline()});
+  p.on('disconnected',function(){try{p.reconnect()}catch(e){}});
+}
+function guestMsg(m){
+  if(!m||typeof m!=='object')return;
+  if(m.t==='full'){say('bad','Бөлме толы');toast('Бөлме толы немесе жарыс басталып кеткен');
+    ONL.active=false;if($('scr').classList.contains('show'))screenOnline();return}
+  if(m.t==='welcome'){
+    ONL.me=clamp(+m.you||0,0,20);ONL.ready=true;ONL.active=true;
+    ONL.qs=(Array.isArray(m.qs)?m.qs:[]).map(qFix).filter(Boolean);
+    ONL.topic=trimS(m.topic).slice(0,40)||'Онлайн жарыс';
+    ONL.dur=clamp(+m.dur||20000,5000,60000);
+    ONL.rounds=clamp(+m.rounds||ONL.qs.length||1,1,60);
+    ONL.off=Date.now()-(+m.ht||Date.now());
+    setRoster(m.pl||[]);
+    if(!ONL.players[ONL.me])ONL.me=0;
+    say('ok','Сәлем, '+oName()+'! '+ONL.players.length+' ойыншы');
+    if($('scr').classList.contains('show'))screenOnline();updateOnlHud();return}
+  if(m.t==='who'){setRoster(m.pl||[]);
+    if($('scr').classList.contains('show')&&!ONL.playing)screenOnline();updateOnlHud();return}
+  if(m.t==='go'){
+    ONL.off=Date.now()-(+m.ht||Date.now());
+    ONL.dur=clamp(+m.dur||ONL.dur,5000,60000);
+    var d=(+m.startAt||Date.now())-ONL.off-Date.now();
+    if(!(d>0))d=250;d=Math.min(d,6000);
+    clearTimeout(ONL.watch);
+    ONL.watch=setTimeout(function(){beginRound(+m.i||0,ONL.dur)},d);
+    say('ok','Сұрақ '+Math.max(1,Math.round(d/1000))+' сек');
+    return}
+  if(m.t==='board'){ONL.off=Date.now()-(+m.ht||Date.now());applyBoard(m);if(ONL.playing)onlineHud();maybeResolve();updateOnlHud();return}
+  if(m.t==='end'){applyBoard({s:(m.p||[]).map(function(r){return r.s})});
+    finishRace(m.p||null);return}
+  if(m.t==='kick'){onlineTeardown();ONL.tab='join';screenOnline();return}
+}
+function onlineSend(msg){
+  if(!ONL.active||!window.Peer)return;
+  msg.ht=Date.now();
+  if(ONL.host){for(var k in ONL.conns){try{ONL.conns[k].send(msg)}catch(e){}}}
+  else{try{if(ONL.conn&&ONL.conn.open)ONL.conn.send(msg)}catch(e){}}
+}
+
+/* ---------- жарыс айналымы ---------- */
+function onlineStartRace(){
+  if(!ONL.host){toast('Жарысты бөлме жасаушы бастайды');return}
+  if(ONL.players.length<2){toast('Кемінде 2 ойыншы керек');return}
+  if(!ONL.qs.length){toast('Сұрақ жоқ');return}
+  ONL.rounds=clamp(ONL.rounds||1,1,Math.min(60,ONL.qs.length));
+  for(var i=0;i<ONL.players.length;i++){var p=ONL.players[i];p.s=0;p.st=0;p.an=false;p.gone=false}
+  ONL.ended=false;ONL.round=-1;
+  onlineSend({t:'start',rounds:ONL.rounds,dur:ONL.dur});
+  sfx.win();armAudio();hostRound(0);
+}
+function hostRound(i){
+  if(!ONL.host||!ONL.active)return;
+  ONL.round=i;
+  var startAt=Date.now()+1600;
+  onlineSend({t:'go',i:i,dur:ONL.dur,startAt:startAt});
+  clearTimeout(ONL.watch);
+  ONL.watch=setTimeout(function(){beginRound(i,ONL.dur)},1600);
+  say('ok','Сұрақ '+(i+1)+'/'+ONL.rounds+' дайындалуда');
+}
+function beginRound(i,dur){
+  if(!ONL.active)return;
+  i=clamp(i|0,0,Math.max(0,ONL.qs.length-1));
+  var q=ONL.qs[i];if(!q){if(ONL.host)finishRaceHost();return}
+  ONL.playing=true;ONL.round=i;ONL.answered=false;ONL.resolved=false;ONL.rDur=clamp(dur||20000,5000,60000);
+  for(var k=0;k<ONL.players.length;k++)ONL.players[k].an=false;
+  $('podium').classList.remove('show','fade');
+  $('sheet').classList.remove('show');PG.cur=null;PG.locked=false;
+  for(var j=W.planes.length-1;j>=0;j--)removePlane(W.planes[j]);
+  PG.on=true;PG.decor=false;PG.over=false;PG.paused=false;PG.nextAt=1e15;
+  ONL.serial++;
+  var cr=craftFor(1+(i%3),ONL.serial);
+  var o=addPlane(cr,Object.assign({pack:ONL.topic,online:true},q));
+  $('hud').classList.remove('hide');$('bar').classList.add('hide');hide();
+  openPlaneQ(o);
+  ONL.r0=performance.now();PG.t0=ONL.r0;PG.dur=ONL.rDur;PG.locked=false;
+  $('ring').classList.remove('low');$('ringNum').textContent=Math.ceil(ONL.rDur/1000);
+  armAudio();startMusic('calm');
+  if(ONL.host){clearTimeout(ONL.watch);ONL.watch=setTimeout(hostFinishRound,ONL.rDur+900)}
+  onlineHud();updateOnlHud();
+  say('ok','Сұрақ '+(i+1)+'/'+ONL.rounds+' · '+Math.round(ONL.rDur/1000)+' сек');
+  banner('СҰРАҚ '+(i+1)+'/'+ONL.rounds,'БАСТАЛДЫ','Кім тез тапса — ұпай көп');
+}
+function onlineHud(){
+  var me=myP();PG.score=me?me.s:0;PG.wave=ONL.round+1;hud();
+  var w=$('hWave').querySelector('.lbl');if(w)w.textContent='Сұрақ';
+  var s=$('hScore').querySelector('.lbl');if(s)s.textContent='Ұпай';
+  var st=$('hStreak');if(st&&me&&me.st>=2){st.style.display='';st.innerHTML='Комбо ×'+me.st;st.classList.add('hot')}
+  else if(st)st.style.display='none';
+  hearts();
+}
+function onlineAnswer(btn,o,q,ok){
+  PG.locked=true;ONL.answered=true;
+  var ms=clamp(performance.now()-ONL.r0,0,ONL.rDur);
+  planeReveal(q.a);
+  if(ok){verdict(true,'Дұрыс!');sfx.correct();
+    $('flash').classList.remove('go');void $('flash').offsetWidth;$('flash').classList.add('go');
+    setTimeout(function(){boomPlane(o)},380)}
+  else{btn.classList.add('wrong');verdict(false,'Қате');sfx.wrong();
+    setTimeout(function(){fleePlane(o)},520)}
+  $('ringNum').textContent='·';$('ring').classList.remove('low');
+  $('qMeta').innerHTML='<span class="mpill own">Жауабың кетті · бәсекелестерді күт</span>';
+  onlineSend({t:'ans',i:ONL.round,ok:ok,ms:Math.round(ms)});
+  if(ONL.host)hostAnswer(ONL.me,ONL.round,ok,ms);
+  updateOnlHud();
+}
+function onlineTimeout(){
+  if(!ONL.playing||!PG.cur||PG.locked)return;
+  PG.locked=true;ONL.answered=true;
+  var o=PG.cur;
+  planeReveal(o.q.a);verdict(false,'Уақыт');sfx.wrong();
+  $('ringNum').textContent='·';
+  $('qMeta').innerHTML='<span class="mpill own">Уақыт бітті · нәтижені күт</span>';
+  setTimeout(function(){fleePlane(o)},320);
+  PG.cur=null;
+  onlineSend({t:'ans',i:ONL.round,ok:false,ms:Math.round(ONL.rDur)});
+  if(ONL.host)hostAnswer(ONL.me,ONL.round,false,ONL.rDur);
+  updateOnlHud();
+}
+function hostAnswer(j,i,ok,ms){
+  if(!ONL.host||!ONL.playing)return;
+  if((i|0)!==ONL.round)return;
+  var p=ONL.players[j];if(!p||p.gone||p.an)return;
+  p.an=true;
+  ms=clamp(+ms||ONL.rDur,0,ONL.rDur);
+  if(ok){var sp=Math.max(0,Math.round((1-ms/ONL.rDur)*8));p.st++;p.s+=10+sp+Math.min(p.st-1,4)*2}
+  else p.st=0;
+  onlineSend({t:'board',s:scores(),st:streaks(),an:flags()});
+  updateOnlHud();onlineHud();
+  if(allDone()){clearTimeout(ONL.watch);ONL.watch=setTimeout(hostFinishRound,700)}
+}
+function scores(){return ONL.players.map(function(p){return p.s})}
+function streaks(){return ONL.players.map(function(p){return p.st})}
+function flags(){return ONL.players.map(function(p){return p.an?1:0})}
+function allDone(){for(var i=0;i<ONL.players.length;i++)if(!ONL.players[i].gone&&!ONL.players[i].an)return false;return true}
+function applyBoard(m){
+  var s=m.s||[],st=m.st||[],an=m.an||[];
+  for(var i=0;i<ONL.players.length;i++){
+    if(s[i]!=null)ONL.players[i].s=+s[i]||0;
+    if(st[i]!=null)ONL.players[i].st=+st[i]||0;
+    if(an[i]!=null)ONL.players[i].an=!!an[i]}
+}
+function maybeResolve(){if(ONL.playing&&allDone())resolveRound()}
+function hostFinishRound(){
+  if(!ONL.host||!ONL.playing)return;
+  clearTimeout(ONL.watch);
+  for(var i=0;i<ONL.players.length;i++){var p=ONL.players[i];if(p.gone)continue;
+    if(!p.an){p.an=true;p.st=0}}
+  onlineSend({t:'board',s:scores(),st:streaks(),an:flags()});
+  updateOnlHud();
+  ONL.playing=false;
+  resolveRound();
+  var next=ONL.round+1;
+  if(next>=ONL.rounds||next>=ONL.qs.length){ONL.watch=setTimeout(finishRaceHost,1500);return}
+  ONL.watch=setTimeout(function(){hostRound(next)},2200);
+}
+function resolveRound(){
+  if(ONL.resolved)return;ONL.resolved=true;
+  if(PG.cur){var o=PG.cur;PG.cur=null;PG.locked=false;setTimeout(function(){if(!o.dead)fleePlane(o)},200)}
+  $('sheet').classList.remove('show');
+  var rk=liveRank(),me=myP(),pos=me?rk.indexOf(me)+1:0,lead=rk[0]?rk[0].s:0;
+  var left=Math.max(0,ONL.rounds-ONL.round-1);
+  var gap=pos>1&&me?(' · көшбасшыға '+(lead-me.s)+' ұпай'):'';
+  toast(pos?(pos+'-орын'+gap+' · '+left+' сұрақ қалды'):'келесі сұрақ…');
+  say('wait','Келесі сұрақ дайын…');
+}
+function liveRank(){return ONL.players.slice().sort(function(a,b){return b.s-a.s})}
+function updateOnlHud(){
+  var e=$('onlHud');if(!e)return;
+  if(!ONL.active||!ONL.players.length){e.classList.remove('show');return}
+  var rk=liveRank(),h='<b>Тікелей тұрмыс · '+ONL.qLabel()+'</b>';
+  for(var i=0;i<rk.length;i++){var p=rk[i];
+    h+='<div class="r'+(p===myP()?' me':'')+(p.an?' done':'')+'"><i>'+(p.gone?'×':(i+1))+'</i><u>'+esc(p.n)+'</u><s>'+p.s+'</s></div>'}
+  e.innerHTML=h;e.classList.add('show');
+}
+ONL.qLabel=function(){return (ONL.playing?('сұрақ '+(ONL.round+1)+'/'+ONL.rounds):(ONL.ended?'жарыс бітті':'жарыс күтуде'))};
+
+/* ---------- қорытынды: толық орындар + анимация ---------- */
+function finishRaceHost(){
+  if(!ONL.active)return;
+  ONL.playing=false;ONL.ended=true;clearTimeout(ONL.watch);
+  onlineSend({t:'end',p:ONL.players.map(function(p){return {n:p.n,s:p.s,g:p.gone?1:0}})});
+  finishRace(null);
+}
+function finishRace(list){
+  ONL.playing=false;ONL.ended=true;clearTimeout(ONL.watch);
+  if(list&&list.length){var old=ONL.players;
+    ONL.players=list.map(function(r,i){var nm=trimS(r.n).slice(0,14)||('Ойыншы '+(i+1));
+      return {n:nm,s:+r.s||0,st:0,an:true,gone:!!r.g,host:old[i]?old[i].host:i===0}})}
+  $('sheet').classList.remove('show');$('onlHud').classList.remove('show');
+  $('hud').classList.add('hide');$('bar').classList.add('hide');
+  PG.on=false;PG.decor=true;PG.cur=null;PG.locked=false;PG.nextAt=performance.now()+2400;
+  for(var j=W.planes.length-1;j>=0;j--)removePlane(W.planes[j]);
+  setMusicMode('win');armAudio();startMusic('win');
+  showPodium3D();
+}
+function salute3D(){
+  var n=0,iv=setInterval(function(){
+    n++;
+    var v=new THREE.Vector3(rnd(-210,210),rnd(150,290),rnd(-520,-190));
+    boomFX(v,CRAFTS[(Math.random()*4)|0]);
+    if(sfx.on&&AC){tone(rnd(520,1180),.16,'triangle',.09,undefined,at0());}
+    if(n>=7)clearInterval(iv)},520);
+  setTimeout(function(){clearInterval(iv)},6000);
+}
+function confetti(count){
+  var cols=['#fcd34d','#4f6ef7','#16b981','#ef4444','#9b5cf6','#ffffff'];
+  for(var i=0;i<count;i++){
+    var s=document.createElement('span');s.className='cf';
+    s.style.left=rnd(-2,innerWidth+2)+'px';
+    s.style.background=cols[i%cols.length];
+    s.style.animationDuration=rnd(2.1,4.4)+'s';
+    s.style.animationDelay=rnd(0,1.4)+'s';
+    s.style.transform='rotate('+rnd(0,180)+'deg)';
+    s.style.width=rnd(6,11).toFixed(0)+'px';s.style.height=rnd(10,18).toFixed(0)+'px';
+    document.body.appendChild(s);
+    (function(el){setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el)},6400)})(s)}
+}
+function showPodium3D(){
+  var rk=liveRank();
+  for(var i=0;i<rk.length;i++)rk[i].rank=i+1;
+  var w=rk[0];
+  var pd=$('podium');pd.classList.remove('fade');pd.classList.add('show');
+  $('pdKick').textContent='ЖАРЫС БІТТІ · '+ONL.rounds+' СҰРАҚ · '+ONL.topic.toUpperCase();
+  var nm=$('pdName'),h='';
+  for(var k=0;k<w.n.length;k++)h+='<span class="ltr" style="animation-delay:'+(0.9+k*.05).toFixed(2)+'s">'+esc(w.n.charAt(k))+'</span>';
+  nm.innerHTML=h;
+  $('pdSub').textContent=w.s+' ұпай · жеңімпаз'+(ONL.players.length>1?(' · сенің орның — '+(rk.indexOf(myP())+1)):'');
+  var top=rk.slice(0,3),seq=top.length===3?[top[1],top[0],top[2]]:(top.length===2?[top[1],top[0]]:[top[0]]);
+  var ph='';
+  for(var m=0;m<seq.length;m++){var p=seq[m],cls=p.rank===1?'g':(p.rank===2?'s':'b'),
+    dly=p.rank===1?.42:(p.rank===2?.66:.86);
+    ph+='<div class="pod '+cls+'" style="animation-delay:'+dly+'s">'
+      +(p.rank===1?'<svg class="crn" viewBox="0 0 64 64"><path d="M8 48l6-30 10 12 8-18 8 18 10-12 6 30z" fill="#fcd34d" stroke="#e08b0b" stroke-width="2.5" stroke-linejoin="round"/><rect x="8" y="49" width="48" height="7" rx="3" fill="#f59e0b"/></svg>':'')
+      +'<div class="av" style="background:'+pColor(p.n)+'">'+esc(p.n.charAt(0).toUpperCase())+'</div>'
+      +'<div class="nm">'+esc(p.n)+'</div><div class="pt">'+p.s+' ұпай</div>'
+      +'<div class="bs"><em>'+p.rank+'</em></div></div>'}
+  $('pdPods').innerHTML=ph;
+  var rh='';
+  for(var z=3;z<rk.length;z++){var q=rk[z];
+    rh+='<div class="prow" style="animation-delay:'+(1.2+(z-3)*.13).toFixed(2)+'s">'
+      +'<span class="pi" style="background:'+pColor(q.n)+'">'+q.rank+'</span>'
+      +'<span class="pu">'+esc(q.n)+(q.gone?' (шықты)':'')+'</span>'
+      +'<span class="pv">'+q.s+' ұпай</span></div>'}
+  $('pdRows').innerHTML=rh;
+  /* орын сайын дыбыс */
+  var delays=[420,660,860,1000,1130,1260,1390,1520];
+  for(var d=0;d<Math.min(rk.length,8);d++)(function(idx,delay){
+    setTimeout(function(){sfx.place(idx+1)},delay)})(d,delays[d]);
+  setTimeout(function(){sfx.win()},1700);
+  setTimeout(function(){confetti(70)},700);
+  setTimeout(function(){confetti(45)},2100);
+  setTimeout(salute3D,1000);
+  $('pdAgain').onclick=function(){sfx.click();
+    if(ONL.host){onlineStartRace()}
+    else{say('wait','Жасаушыны күт…');toast('Жарысты жасаушы қайта бастауы керек')}
+    if(ONL.active)screenOnline()};
+  $('pdHome').onclick=function(){sfx.click();onlineTeardown();ONL.tab='host';screenStart()};
+}
+
+/* ---------- тазалау ---------- */
+function onlineTeardown(keepPlayers){
+  clearTimeout(ONL.watch);ONL.watch=null;
+  if(ONL.active&&ONL.peer){try{onlineSend({t:'kick'})}catch(e){}}
+  try{if(ONL.conn)ONL.conn.close()}catch(e){}
+  for(var k in ONL.conns){try{ONL.conns[k].close()}catch(e){}}
+  try{if(ONL.peer)ONL.peer.destroy()}catch(e){}
+  ONL.peer=null;ONL.conn=null;ONL.conns={};ONL.idx={};
+  ONL.active=false;ONL.host=false;ONL.ready=false;ONL.playing=false;ONL.ended=false;
+  ONL.code='';ONL.round=0;ONL.answered=false;ONL.me=0;ONL.off=0;ONL.serial=0;
+  if(!keepPlayers)ONL.players=[];
+  ONL.qs=packQuestions(actPack()).map(function(q){return Object.assign({pack:actPack().title},q)});
+  ONL.topic=actPack().title;
+  $('onlHud').classList.remove('show');$('onlHud').innerHTML='';
+  $('podium').classList.add('fade');
+  setTimeout(function(){$('podium').classList.remove('show','fade')},380);
+  var w=$('hWave').querySelector('.lbl');if(w)w.textContent='Толқын';
+  var s=$('hScore').querySelector('.lbl');if(s)s.textContent='Ұпай';
+}
+
 /* ================= power-ups ================= */
 function usePower(p){
   if(p==='edit'){screenEdit();return}
   if(p==='quit'){
     stopMusic();
+    if(ONL.active)onlineTeardown();
     PG.paused=false;PG.on=false;PG.over=false;PG.cur=null;PG.locked=false;PG.shield=false;
     $('sheet').classList.remove('show');
     if(PG.score>PG.best){PG.best=PG.score;store('za_best3d',String(PG.best))}
@@ -1246,8 +2079,8 @@ function animate(){
   if(PG.paused){W.r.render(W.scene,W.cam);return}
   W.t+=dt;
   if(PG.on&&!PG.over){
-    if(!PG.cur)PG.locked=false;
-    if(now>PG.nextAt&&W.planes.length<(PG.wave<3?2:(PG.wave<7?3:4)))spawn();
+    if(!PG.cur){PG.locked=false;if(PG.tension){PG.tension=false;setMusicMode('calm')}}
+    if(!ONL.playing&&now>PG.nextAt&&W.planes.length<(PG.wave<3?2:(PG.wave<7?3:4)))spawn();
     tickSheet(now)}
   else if(PG.decor&&W.planes.length<2&&now>PG.nextAt){
     PG.serial++;addPlane(CRAFTS[PG.serial%4],{c:'Демалыс',q:'',o:['','','',''],a:0});
